@@ -1,0 +1,13 @@
+.image-container {
+    overflow-y: auto;
+    max-height: 400px; /* Adjust as needed */
+  }
+  
+  img {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  img:hover {
+    transform: scale(1.05);
+  }
+  
