@@ -11,7 +11,8 @@ import Loader from '../../../Loader';
 
 const Material = () => {
     const [services, setServices] = useState([]);
-    const [ loading, setLoading ] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     const token = localStorage.getItem('token')
     async function getUsers() {
@@ -52,32 +53,39 @@ const Material = () => {
 
 
     const columns = useMemo(
-        () => [
-            {
-                header: 'Material',
-                accessorKey: 'material',
-                size: 150,
-            },
-            {
-                header: 'Vehicle no.',
-                accessorKey: 'vehicle_number',
-                size: 150,
-            },
-            {
-                header: 'Full Details',
-                size: 60,
-                Cell: ({ row }) => <Link to={`detail/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilDescription} /></Link>,
-            },
-            // {
-            //     header: 'Delete',
-            //     size: 60,
-            //     accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
-            // },
-            {
-                header: 'Edit',
-                size: 60,
-                Cell: ({ row }) => <Link to={`materialEdit/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilColorBorder} /></Link>,
-            },
+        () => [{
+            header: 'S No.',
+            Cell: ({ row }) => row.index + 1
+        },
+        {
+            header: 'Material',
+            accessorKey: 'material',
+            size: 150,
+        },
+        {
+            header: 'Vehicle no.',
+            accessorKey: 'vehicle_number',
+            size: 150,
+        },
+        {
+            header: 'Full Details',
+            size: 60,
+            Cell: ({ row }) => <Link to={`detail/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilDescription} /></Link>,
+        },
+        // {
+        //     header: 'Delete',
+        //     size: 60,
+        //     accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
+        // },
+        {
+            header: 'Edit',
+            size: 60,
+            Cell: ({ row }) => <Link to={`materialEdit/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilColorBorder} /></Link>,
+        },
+        {
+            header: "Date",
+            Cell: ({ row }) => row.original.created_at ? new Date(row.original.created_at).toLocaleDateString() : '',
+        }
         ],
         [],
     );
@@ -102,7 +110,7 @@ const Material = () => {
             <div className="wrapper d-flex flex-column min-vh-100">
                 <AppHeader />
                 <div className="body flex-grow-1">
-                     {loading && <Loader />}
+                    {loading && <Loader />}
 
                     <div className='mx-3 mb-2'>
                         <h4 className='mb-2'>Material</h4>

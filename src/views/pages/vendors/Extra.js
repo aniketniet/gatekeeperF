@@ -49,6 +49,10 @@ const Extra = () => {
     const columns = useMemo(
         () => [
             {
+                header: 'S No.',
+                Cell: ({ row }) => row.index + 1
+            },
+            {
                 header: 'Remark',
                 accessorKey: 'remark',
                 size: 150,
@@ -69,6 +73,10 @@ const Extra = () => {
                 size: 60,
                 Cell: ({ row }) => <Link to={`extraEdit/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilColorBorder} /></Link>,
             },
+            {
+                header: "Date",
+                Cell: ({ row }) => row.original.created_at ? new Date(row.original.created_at).toLocaleDateString() : '',
+            }
         ],
         [],
     );

@@ -45,6 +45,10 @@ const Stones = () => {
     const columns = useMemo(
         () => [
             {
+                header: 'S No.',
+                Cell: ({ row }) => row.index + 1
+            },
+            {
                 header: 'RST',
                 accessorKey: 'rst',
                 size: 150,
@@ -69,6 +73,10 @@ const Stones = () => {
                 size: 60,
                 Cell: ({ row }) => <Link to={`stoneEdit/${row.original._id}`} style={{ textDecoration: 'none' }}><CIcon icon={cilColorBorder} /></Link>,
             },
+            {
+                header: "Date",
+                Cell: ({ row }) => row.original.created_at ? new Date(row.original.created_at).toLocaleDateString() : '',
+            }
         ],
         [],
     );
