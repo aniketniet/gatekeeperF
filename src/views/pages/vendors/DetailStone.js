@@ -10,6 +10,11 @@ const DetailStone = () => {
   // Extract the id from route parameters
   const { id } = useParams()
 
+
+  const handlePrint = () => {
+    window.print(); // Trigger the browser print dialog
+  };
+
   // Function to fetch Stone details
   async function getStone() {
     try {
@@ -36,7 +41,12 @@ const DetailStone = () => {
       <div className="wrapper d-flex flex-column min-vh-100">
         <AppHeader />
         <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
+          <div className="d-flex justify-content-between">
           <h1>Detail Stone</h1>
+          <button className="btn  bg-primary" onClick={handlePrint}>
+          PRINT
+        </button>
+          </div>
           {Stone ? (
             <div style={{ marginTop: '20px' }}>
               {/* Display specific fields */}
@@ -84,8 +94,7 @@ const DetailStone = () => {
                       alt="Vehicle Picture"
                       style={{
                         maxWidth: '100%',
-
-                        maxHeight: '150px',
+                        maxHeight: '100%',
                         borderRadius: '8px',
                       }}
                     />
@@ -107,7 +116,7 @@ const DetailStone = () => {
                       style={{
                         maxWidth: '100%',
 
-                        maxHeight: '150px',
+                        maxHeight: '100%',
 
                         borderRadius: '8px',
                       }}
@@ -129,7 +138,7 @@ const DetailStone = () => {
                       alt="Slip Picture"
                       style={{
                         maxWidth: '100%',
-                        maxHeight: '150px',
+                        maxHeight: '100%',
                         borderRadius: '8px',
                       }}
                     />

@@ -10,6 +10,12 @@ const DetailMaterial = () => {
   // Extract the id from route parameters
   const { id } = useParams()
 
+
+
+  const handlePrint = () => {
+    window.print(); // Trigger the browser print dialog
+  };
+
   // Function to fetch material details
   async function getMaterial() {
     try {
@@ -35,8 +41,13 @@ const DetailMaterial = () => {
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100">
         <AppHeader />
-        <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
+        <div className="text-white" style={{ marginTop: '10px', padding: '10px' }}>
+          <div className="d-flex justify-content-between">
           <h1>Detail Material</h1>
+          <button className="btn bg-primary" onClick={handlePrint}>
+            PRINT
+        </button>
+          </div>
           {material ? (
             <div style={{ marginTop: '20px' }}>
               {/* Explicitly render fields */}
@@ -86,7 +97,7 @@ const DetailMaterial = () => {
                       alt="Vehicle Picture"
                       style={{
                         maxWidth: '100%',
-                        maxHeight: '150px',
+                        maxHeight: '100%',
                         borderRadius: '8px',
                       }}
                     />
@@ -107,7 +118,7 @@ const DetailMaterial = () => {
                       alt="Weight Picture"
                       style={{
                         maxWidth: '100%',
-                        maxHeight: '150px',
+                        maxHeight: '100%',
                         borderRadius: '8px',
                       }}
                     />
@@ -128,7 +139,7 @@ const DetailMaterial = () => {
                       alt="Slip Picture"
                       style={{
                         maxWidth: '100%',
-                        maxHeight: '150px',
+                        maxHeight: '100%',
                         borderRadius: '8px',
                       }}
                     />

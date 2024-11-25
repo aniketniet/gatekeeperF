@@ -30,7 +30,7 @@ const Login = () => {
     setLoading(true);
     try {
       const creds = {
-        phone: username,
+        employeeId: username,
         password: password,
       };
   
@@ -85,7 +85,7 @@ const Login = () => {
                         <CIcon icon={cilUser} />
                       </CInputGroupText>
                       <CFormInput
-                        placeholder="Phone"
+                        placeholder="User Id"
                         autoComplete="off"
                         name="username"
                         onChange={e => setUsername(e.target.value)}

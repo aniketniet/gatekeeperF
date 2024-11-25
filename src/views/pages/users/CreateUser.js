@@ -62,11 +62,11 @@ const CreateUser = () => {
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label htmlFor="employeeId" className="form-label">Employee Id</label>
+                                        <label htmlFor="employeeId" className="form-label">User Id</label>
                                         <input
                                             type="text"
                                             name="employeeId"
-                                            placeholder="employeeId"
+                                            placeholder="User Id"
                                             className="form-control"
                                             onChange={handleChange}
                                         />

@@ -7,6 +7,7 @@ import {
   CCardTitle,
 } from '@coreui/react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   const [totalUsers, setTotalUsers] = useState(0)
@@ -22,28 +23,21 @@ const Dashboard = () => {
       })
     
       setTotalUsers(users.data.users.length)
-      // const vendors = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/getAllVendors`, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`
-      //   }
-      // })
-      // setTotalVendors(vendors.data.vendors.length)
+
+     const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/get-all-audio`, {
+        headers: {
+           Authorization: `Bearer ${token}`
+        }
+     })
+     console.log(res.data.data, 'vendors')
+     setTotalVendors(res.data.data.length)
     }
     fetchUsersAndVendors()
   }, [])
 
   return (
     <>
-      {/* <CCard
-        textBgColor={'primary'}
-        className="mb-4 mt-3"
-        style={{ maxWidth: '18rem' }}
-      >
-        <CCardHeader>Vendors</CCardHeader>
-        <CCardBody>
-          <CCardTitle>Vendors: {totalVendors}</CCardTitle>
-        </CCardBody>
-      </CCard> */}
+      
       <CCard
         textBgColor={'secondary'}
         className="mb-3"
@@ -54,6 +48,18 @@ const Dashboard = () => {
           <CCardTitle>Users: {totalUsers} </CCardTitle>
         </CCardBody>
       </CCard>
+      <Link to="/audiolist">
+       <CCard
+        textBgColor={'primary'}
+        className="mb-4 mt-3"
+        style={{ maxWidth: '18rem' }}
+      >
+        <CCardHeader>Total Audio</CCardHeader>
+        <CCardBody>
+          <CCardTitle>Total Audio: {totalVendors}</CCardTitle>
+        </CCardBody>
+      </CCard> 
+      </Link>
     </>
   )
 }

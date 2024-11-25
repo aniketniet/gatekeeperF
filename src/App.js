@@ -25,6 +25,8 @@ import EditStone from './views/pages/vendors/EditStone'
 import EditExtra from './views/pages/vendors/EditExtra'
 import CreateBill from './views/pages/createBill/CreateBill'
 import PreviewBill from './views/pages/createBill/PreviewBill'
+import EditUser from './views/pages/users/EditUser'
+import Audio from './views/dashboard/AudioList'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -61,20 +63,22 @@ const App = () => {
           <Route exact path="/login" name="Login Page" element={<Login />} />
           <Route exact path="/404" name="Page 404" element={<Page404 />} />
           <Route path='/users' element={<AllUsers />} />
+          <Route path='/user/:id' element={<EditUser />} />
           <Route path='/user/create' element={<CreateUser />} />
-          <Route path='/material' element={<Material/>} />
-          <Route path='/material/detail/:id' element={<DetailMaterial/>} />
-          <Route path='/material/materialEdit/:id' element={<EditMaterial/>} />
-          <Route path='/stone/stoneEdit/:id' element={<EditStone/>} />
-          <Route path='/extra/extraEdit/:id' element={<EditExtra/>} />
+          <Route path="/:type/material" element={<Material />} />
+          <Route path='/:type/material/detail/:id' element={<DetailMaterial/>} />
+          <Route path='/:type/material/materialEdit/:id' element={<EditMaterial/>} />
+          <Route path='/:type/stone/stoneEdit/:id' element={<EditStone/>} />
+          <Route path='/:type/extra/extraEdit/:id' element={<EditExtra/>} />
           <Route path='/createbill' element={<CreateBill/>} />
           <Route path='/previewbill' element={<PreviewBill/>} />
+          <Route path='/audiolist' element={<Audio/>} />
 
 
-          <Route path='/stone/detail/:id' element={<DetailStone/>} />
-          <Route path='/extra/detail/:id' element={<DetailExtra/>} />
-          <Route path='/stone' element={<Stone/>} />
-          <Route path='/extra' element={<Extra/>} />
+          <Route path='/:type/stone/detail/:id' element={<DetailStone/>} />
+          <Route path='/:type/extra/detail/:id' element={<DetailExtra/>} />
+          <Route path='/:type/stone' element={<Stone/>} />
+          <Route path='/:type/extra' element={<Extra/>} />
           <Route path='/faq' element={<Faq />} />
           <Route path='/city' element={<City />} />
           <Route path='/about' element={<AboutUs />} />

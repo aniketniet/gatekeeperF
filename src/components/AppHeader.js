@@ -47,7 +47,10 @@ const AppHeader = () => {
       <CContainer className="border-bottom px-4" fluid>
         <CHeaderToggler
           onClick={() => dispatch({ type: 'set', sidebarShow: !sidebarShow })}
-          style={{ marginInlineStart: '-14px' }}
+          style={{
+            marginInlineStart: '-14px',
+            display: window.innerWidth <= 950 ? 'block' : 'none',
+          }}
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>

@@ -10,6 +10,9 @@ const DetailExtra = () => {
   // Extract the id from route parameters
   const { id } = useParams()
 
+  const handlePrint = () => {
+    window.print(); // Trigger the browser print dialog
+  };
   // Function to fetch Stone details
   async function getStone() {
     try {
@@ -37,7 +40,12 @@ const DetailExtra = () => {
         <AppHeader />
 
         <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
+          <div className="d-flex justify-content-between">
           <h1>Detail Extra</h1>
+          <button className="btn bg-primary" onClick={handlePrint}>
+          PRINT
+        </button>
+          </div>
           {Stone ? (
             <div style={{ marginTop: '20px' }}>
               {/* Display specific fields */}
@@ -55,17 +63,13 @@ const DetailExtra = () => {
               </div>
 
               {/* Display images */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                  gap: '20px',
-                }}
+              <div 
               >
                 {Stone.vehicle_picture && (
                   <div
                     style={{
                       background: '#333',
+                      maxWidth: '300px',
                       padding: '10px',
                       borderRadius: '8px',
                       textAlign: 'center',
@@ -76,55 +80,14 @@ const DetailExtra = () => {
                       alt="Vehicle Picture"
                       style={{
                         maxWidth: '100%',
-                        maxHeight: '150px',
+                        maxHeight: '300px',
                         borderRadius: '8px',
                       }}
                     />
                     <p style={{ marginTop: '10px', fontSize: '14px' }}>VEHICLE PICTURE</p>
                   </div>
                 )}
-                {Stone.weight_picture && (
-                  <div
-                    style={{
-                      background: '#333',
-                      padding: '10px',
-                      borderRadius: '8px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <img
-                      src={`${Stone.weight_picture}`}
-                      alt="Weight Picture"
-                      style={{
-                        maxWidth: '100%',
-                        maxHeight: '150px',
-                        borderRadius: '8px',
-                      }}
-                    />
-                    <p style={{ marginTop: '10px', fontSize: '14px' }}>WEIGHT PICTURE</p>
-                  </div>
-                )}
-                {Stone.slip_picture && (
-                  <div
-                    style={{
-                      background: '#333',
-                      padding: '10px',
-                      borderRadius: '8px',
-                      textAlign: 'center',
-                    }}
-                  >
-                    <img
-                      src={`${Stone.slip_picture}`}
-                      alt="Slip Picture"
-                      style={{
-                        maxWidth: '100%',
-                        maxHeight: '150px',
-                        borderRadius: '8px',
-                      }}
-                    />
-                    <p style={{ marginTop: '10px', fontSize: '14px' }}>SLIP PICTURE</p>
-                  </div>
-                )}
+             
               </div>
             </div>
           ) : (

@@ -45,9 +45,45 @@ const AllUsers = () => {
             }
         }
     }
+    async function handleParmanentDelete(id) {
+        const confirmed = confirm('Confirm to delete?');
+        if (confirmed) {
+            try {
+                const res = await axios.delete(`${import.meta.env.VITE_BASE_URL}admin/delete-user/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                
+                if (res.status === 200) {
+                    // After successful deletion, fetch the updated list of users
+                    getUsers();  // Make sure to implement this function to refresh your users list
+                } else {
+                    alert('Failed to delete user.');
+                }
+            } catch (error) {
+                console.error('Error occurred while deleting the user:', error);
+                alert('An error occurred. Please try again.');
+            }
+        } else {
+            return;
+        }
+    }
+    
+
+
+
+
+
+
+
 
     const columns = useMemo(
         () => [
+            {
+                header: 'S No.',
+                Cell: ({ row }) => row.index + 1
+            },
             {
                 header: 'Name',
                 accessorKey: 'name', // Corresponds to the 'name' field in the API response
@@ -59,15 +95,34 @@ const AllUsers = () => {
                 size: 200,
             },
             {
-                header: 'EmployeeId',
+                header: 'UserId',
                 accessorKey: 'employeeId', // Assuming 'employeeId' exists in the response
                 size: 100,
             },
             {
+                header: "Date & Time",
+                Cell: ({ row }) => {
+                    if (row.original.created_at) {
+                        const options = {
+                            day: '2-digit', // Show the day first
+                            month: '2-digit', // Month as a number
+                            year: 'numeric', // Full year
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit',
+                        };
+                        return new Intl.DateTimeFormat('en-GB', options).format(new Date(row.original.created_at)); // 'en-GB' for DD/MM/YYYY format
+                    }
+                    return '';
+                },
+            },
+            
+            
+            {
                 header: 'Edit',
                 size: 100,
                 accessorFn: (dataRow) => (
-                    <Link to={`/user/orders/${dataRow._id}`}>
+                    <Link to={`/user/${dataRow._id}`}>
                         <CIcon icon={cilColorBorder} />
                     </Link>
                 ),
@@ -89,6 +144,11 @@ const AllUsers = () => {
                     />
                 ),
             },
+         {
+            header: 'Delete',
+             size: 60,
+             accessorFn: (dataRow) => <CIcon icon={cilTrash} onClick={() => handleParmanentDelete(dataRow._id)} style={{ cursor: 'pointer', color: "red" }} />
+        },
         ],
         []
     );

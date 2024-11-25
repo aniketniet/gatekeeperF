@@ -5,7 +5,7 @@ import {
   cilPencil,
   cilSpeedometer,
 } from '@coreui/icons'
-import { CNavItem, CNavTitle } from '@coreui/react'
+import { CNavItem, CNavTitle,CNavGroup  } from '@coreui/react'
 
 const _nav = [
   {
@@ -33,63 +33,81 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'Categories',
+    name: 'Reports',
+  },
+   {
+    component: CNavGroup, // Collapsible group for dropdown
+    name: 'BSC',
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Material',
+        to: '/bsc/material',
+      },
+      {
+        component: CNavItem,
+        name: 'Stone',
+        to: '/bsc/stone',
+      },
+      {
+        component: CNavItem,
+        name: 'Extra',
+        to: '/bsc/extra',
+      },
+    ],
   },
   {
-    component: CNavItem,
-    name: 'Material',
-    to: '/material',
+    component: CNavGroup, // Collapsible group for dropdown
+    name: 'SRSC',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Material',
+        to: '/srsc/material',
+      },
+      {
+        component: CNavItem,
+        name: 'Stone',
+        to: '/srsc/stone',
+      },
+      {
+        component: CNavItem,
+        name: 'Extra',
+        to: '/srsc/extra',
+      },
+    ],
   },
   {
-    component: CNavItem,
-    name: 'Stone',
-    to: '/stone',
+    component: CNavGroup, // Collapsible group for dropdown
+    name: 'SSC',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    items: [
+      {
+        component: CNavItem,
+        name: 'Material',
+        to: '/ssc/material',
+      },
+      {
+        component: CNavItem,
+        name: 'Stone',
+        to: '/ssc/stone',
+      },
+      {
+        component: CNavItem,
+        name: 'Extra',
+        to: '/ssc/extra',
+      },
+    ],
   },
-  {
-    component: CNavItem,
-    name: 'Extra',
-    to: '/extra',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
-
   {
     component: CNavItem,
     name: 'Create Bill',
     to: '/createbill',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavItem,
-  //   name: 'City',
-  //   to: '/city',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'About Us',
-  //   to: '/about',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Complaint',
-  //   to: '/complaint',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'Coupon',
-  //   to: '/coupon',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
-  // {
-  //   component: CNavItem,
-  //   name: 'SOS',
-  //   to: '/sos',
-  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  // },
+  
 ]
 
 export default _nav
