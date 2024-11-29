@@ -39,24 +39,24 @@ const Dashboard = () => {
     <>
       
       <CCard
-        textBgColor={'secondary'}
+        // textBgColor={'#0077ff'}
         className="mb-3"
-        style={{ maxWidth: '18rem' }}
+        style={{ maxWidth: '18rem' , backgroundColor: '#0077ff' }}
       >
-        <CCardHeader>Users</CCardHeader>
+        <CCardHeader>USERS</CCardHeader>
         <CCardBody>
-          <CCardTitle>Users: {totalUsers} </CCardTitle>
+          <CCardTitle>USERS: {totalUsers} </CCardTitle>
         </CCardBody>
       </CCard>
       <Link to="/audiolist">
        <CCard
-        textBgColor={'primary'}
-        className="mb-4 mt-3"
-        style={{ maxWidth: '18rem' }}
+        // textBgColor={'#0077ff'}
+        className="mb-4 mt-3 "
+        style={{ maxWidth: '18rem', backgroundColor: '#0077ff' }}
       >
-        <CCardHeader>Total Audio</CCardHeader>
+        <CCardHeader>TOTAL AUDIO</CCardHeader>
         <CCardBody>
-          <CCardTitle>Total Audio: {totalVendors}</CCardTitle>
+          <CCardTitle>TOTAL AUDIO: {totalVendors}</CCardTitle>
         </CCardBody>
       </CCard> 
       </Link>

@@ -37,6 +37,16 @@ const Audio = () => {
     const columns = useMemo(
         () => [
             {
+                header: 'S No.',
+                Cell: ({ row }) => row.index + 1,
+                size: 50,
+              },
+              {
+                header: 'Created By',
+                accessorKey: 'created_by',
+                size: 150,
+              },
+              {
                 header: 'Category',
                 accessorKey: 'category',
             },
@@ -49,6 +59,38 @@ const Audio = () => {
                     </audio>
                 ),
             },
+             
+              {
+                header: 'Vehicle no.',
+                accessorKey: 'vehicle_number',
+                size: 150,
+              },
+             
+              {
+                header: 'RST',
+                accessorKey: 'rst',
+                size: 150,
+              },
+              
+              {
+                header: 'Date & Time',
+                Cell: ({ row }) => {
+                  if (row.original.created_at) {
+                    const options = {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                    };
+                    return new Intl.DateTimeFormat('en-GB', options).format(new Date(row.original.created_at));
+                  }
+                  return '';
+                },
+              },
+          
+          
            
         ],
         [],

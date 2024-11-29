@@ -10,7 +10,6 @@ const DetailStone = () => {
   // Extract the id from route parameters
   const { id } = useParams()
 
-
   const handlePrint = () => {
     window.print(); // Trigger the browser print dialog
   };
@@ -37,39 +36,70 @@ const DetailStone = () => {
 
   return (
     <>
+      <style>
+        {`
+          @media print {
+            body {
+              color: black !important;
+            }
+            table, th, td, p, h1, h2, h3, h4, h5, h6, span {
+              color: black !important;
+            }
+            .no-print {
+              display: none !important;
+            }
+          }
+        `}
+      </style>
+      
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100">
         <AppHeader />
         <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
           <div className="d-flex justify-content-between">
-          <h1>Detail Stone</h1>
-          <button className="btn  bg-primary" onClick={handlePrint}>
-          PRINT
-        </button>
+            <h1>STONE DETAIL </h1>
+            <button className="btn bg-primary px-3 no-print" onClick={handlePrint}>
+              PRINT
+            </button>
           </div>
+
           {Stone ? (
             <div style={{ marginTop: '20px' }}>
-              {/* Display specific fields */}
-              <div style={{ marginBottom: '20px' }}>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Remark:</strong> {Stone.remark}
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>RST:</strong> {Stone.rst}
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Final weight:</strong> {Stone.final_weight} kg
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Vehicle Number:</strong> {Stone.vehicle_number}
-                </div>
-                <div style={{ marginBottom: '10px' }}>
-                  <audio controls src={`${import.meta.env.VITE_BASE_URL}${Stone.audio}`}>
-                    The “audio” tag is not supported by your browser.
-                  </audio>
-                </div>
-                {/* Add more fields as necessary */}
+              {/* Responsive Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                    
+                    <th><strong>PLANT</strong></th>
+                      <th><strong>RST</strong></th>
+                      <th style={{width:"150px"}}><strong>VEHICLE NUMBER</strong></th>
+                      <th style={{width:"150px"}}><strong>FINAL WEIGHT</strong></th>
+                      <th style={{width:"150px"}}><strong>DATE AND TIME</strong></th>
+                      <th style={{width:"120px"}}><strong>SUBMITTED BY</strong></th>
+                      <th><strong>AUDIO</strong></th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                    <td>{Stone.category}</td>
+                      <td>{Stone.rst}</td>
+                      <td>{Stone.vehicle_number}</td>
+                      <td>{Stone.final_weight} KG</td>
+                      <td>{new Date(Stone.created_at).toLocaleString()}</td>
+                      <td>{Stone.created_by}</td>
+                    
+                      <td>
+                        <audio controls src={`${import.meta.env.VITE_BASE_URL}${Stone.audio}`} style={{width:"150px"}}>
+                          THE “AUDIO” TAG IS NOT SUPPORTED BY YOUR BROWSER.
+                        </audio>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
+              <strong>REMARK</strong>: <p>{Stone.remark}</p>
 
               {/* Display images */}
               <div
@@ -91,7 +121,7 @@ const DetailStone = () => {
                   >
                     <img
                       src={`${Stone.vehicle_picture}`}
-                      alt="Vehicle Picture"
+                      alt="VEHICLE PICTURE"
                       style={{
                         maxWidth: '100%',
                         maxHeight: '100%',
@@ -112,12 +142,10 @@ const DetailStone = () => {
                   >
                     <img
                       src={`${Stone.weight_picture}`}
-                      alt="Weight Picture"
+                      alt="WEIGHT PICTURE"
                       style={{
                         maxWidth: '100%',
-
                         maxHeight: '100%',
-
                         borderRadius: '8px',
                       }}
                     />
@@ -135,7 +163,7 @@ const DetailStone = () => {
                   >
                     <img
                       src={`${Stone.slip_picture}`}
-                      alt="Slip Picture"
+                      alt="SLIP PICTURE"
                       style={{
                         maxWidth: '100%',
                         maxHeight: '100%',
@@ -148,7 +176,7 @@ const DetailStone = () => {
               </div>
             </div>
           ) : (
-            <p>Loading Stone details...</p>
+            <p>LOADING STONE DETAILS...</p>
           )}
         </div>
       </div>

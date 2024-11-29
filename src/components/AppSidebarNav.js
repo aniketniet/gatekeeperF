@@ -15,7 +15,7 @@ export const AppSidebarNav = ({ items }) => {
           ? icon
           : indent && (
               <span className="nav-icon">
-                <span className="nav-icon-bullet"></span>
+                <span className="nav-icon-bullet" style={{color: '#0077ff'}}></span>
               </span>
             )}
         {name && name}

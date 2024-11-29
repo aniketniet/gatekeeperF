@@ -68,7 +68,7 @@ const AppHeader = () => {
 
         </CHeaderNav>
         <CHeaderNav>
-          {/* <CDropdown variant="nav-item" placement="bottom-end">
+       {/* <CDropdown variant="nav-item" placement="bottom-end">
             <CDropdownToggle caret={false}>
               {colorMode === 'dark' ? (
                 <CIcon icon={cilMoon} size="lg" />

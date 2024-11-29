@@ -1,5 +1,5 @@
 {
-  "name": "GateKeeper-admin",
+  "name": "GATEKEEPER-admin",
   "version": "1.0.0",
   "homepage": ".",
   "author": "satish",
@@ -24,6 +24,8 @@
     "core-js": "^3.39.0",
     "dayjs": "^1.11.13",
     "howler": "^2.2.4",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
     "mantine-react-table": "^1.3.4",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
@@ -35,7 +37,8 @@
     "react-router-dom": "^6.22.3",
     "reactstrap": "^9.2.2",
     "redux": "5.0.1",
-    "simplebar-react": "^3.2.4"
+    "simplebar-react": "^3.2.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@tabler/icons-react": "^3.17.0",

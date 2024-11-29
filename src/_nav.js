@@ -10,49 +10,48 @@ import { CNavItem, CNavTitle,CNavGroup  } from '@coreui/react'
 const _nav = [
   {
     component: CNavItem,
-    name: 'Dashboard',
+    name: 'DASHBOARD',
     to: '/dashboard',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
   },
   {
     component: CNavTitle,
-    name: 'Users',
+    name: 'USERS',
   },
   {
     component: CNavItem,
-    name: 'All Users',
+    name: 'ALL USERS',
     to: '/users',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
   },
   {
     component: CNavItem,
-    name: 'Create User',
+    name: 'CREATE USER',
     to: '/user/create',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
   },
   {
     component: CNavTitle,
-    name: 'Reports',
+    name: 'REPORTS',
   },
-   {
+  {
     component: CNavGroup, // Collapsible group for dropdown
     name: 'BSC',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Material',
+        name: 'MATERIAL',
         to: '/bsc/material',
       },
       {
         component: CNavItem,
-        name: 'Stone',
+        name: 'STONE',
         to: '/bsc/stone',
       },
       {
         component: CNavItem,
-        name: 'Extra',
+        name: 'EXTRA',
         to: '/bsc/extra',
       },
     ],
@@ -60,21 +59,21 @@ const _nav = [
   {
     component: CNavGroup, // Collapsible group for dropdown
     name: 'SRSC',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Material',
+        name: 'MATERIAL',
         to: '/srsc/material',
       },
       {
         component: CNavItem,
-        name: 'Stone',
+        name: 'STONE',
         to: '/srsc/stone',
       },
       {
         component: CNavItem,
-        name: 'Extra',
+        name: 'EXTRA',
         to: '/srsc/extra',
       },
     ],
@@ -82,32 +81,31 @@ const _nav = [
   {
     component: CNavGroup, // Collapsible group for dropdown
     name: 'SSC',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
     items: [
       {
         component: CNavItem,
-        name: 'Material',
+        name: 'MATERIAL',
         to: '/ssc/material',
       },
       {
         component: CNavItem,
-        name: 'Stone',
+        name: 'STONE',
         to: '/ssc/stone',
       },
       {
         component: CNavItem,
-        name: 'Extra',
+        name: 'EXTRA',
         to: '/ssc/extra',
       },
     ],
   },
-  {
-    component: CNavItem,
-    name: 'Create Bill',
-    to: '/createbill',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
-  },
-  
+  // {
+  //   component: CNavItem,
+  //   name: 'CREATE BILL',
+  //   to: '/createbill',
+  //   icon: <CIcon icon={cilDrop} customClassName="nav-icon" />,
+  // },
 ]
 
 export default _nav

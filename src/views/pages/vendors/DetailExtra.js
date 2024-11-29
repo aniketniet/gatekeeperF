@@ -13,6 +13,7 @@ const DetailExtra = () => {
   const handlePrint = () => {
     window.print(); // Trigger the browser print dialog
   };
+
   // Function to fetch Stone details
   async function getStone() {
     try {
@@ -35,35 +36,67 @@ const DetailExtra = () => {
 
   return (
     <>
+      <style>
+        {`
+          @media print {
+            body {
+              color: black !important;
+            }
+            table, th, td, p, h1, h2, h3, h4, h5, h6, span {
+              color: black !important;
+            }
+            .no-print {
+              display: none !important;
+            }
+          }
+        `}
+      </style>
+
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100">
         <AppHeader />
 
         <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
           <div className="d-flex justify-content-between">
-          <h1>Detail Extra</h1>
-          <button className="btn bg-primary" onClick={handlePrint}>
-          PRINT
-        </button>
+            <h1>DETAIL EXTRA</h1>
+            <button className="btn bg-primary no-print" onClick={handlePrint}>
+              PRINT
+            </button>
           </div>
+
           {Stone ? (
             <div style={{ marginTop: '20px' }}>
-              {/* Display specific fields */}
-              <div style={{ marginBottom: '20px' }}>
-                <div style={{ marginBottom: '10px' }}>
-                  <strong>Remark:</strong> {Stone.remark}
-                </div>
-
-                <div style={{ marginBottom: '10px' }}>
-                  <audio controls src={`${import.meta.env.VITE_BASE_URL}${Stone.audio}`}>
-                    The “audio” tag is not supported by your browser.
-                  </audio>
-                </div>
-                {/* Add more fields as necessary */}
+              {/* Responsive Table */}
+              <div className="table-responsive">
+                <table className="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                      <th><strong>REMARK</strong></th>
+                      <th><strong>SUBMITTED BY</strong></th>
+                      <th><strong>AUDIO</strong></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{Stone.remark}</td>
+                      <td>{Stone.created_by}</td>
+                      <td>
+                        <audio controls src={`${import.meta.env.VITE_BASE_URL}${Stone.audio}`}>
+                          THE “AUDIO” TAG IS NOT SUPPORTED BY YOUR BROWSER.
+                        </audio>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
 
               {/* Display images */}
-              <div 
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                  gap: '20px',
+                }}
               >
                 {Stone.vehicle_picture && (
                   <div
@@ -77,7 +110,7 @@ const DetailExtra = () => {
                   >
                     <img
                       src={`${Stone.vehicle_picture}`}
-                      alt="Vehicle Picture"
+                      alt="VEHICLE PICTURE"
                       style={{
                         maxWidth: '100%',
                         maxHeight: '300px',
@@ -87,11 +120,10 @@ const DetailExtra = () => {
                     <p style={{ marginTop: '10px', fontSize: '14px' }}>VEHICLE PICTURE</p>
                   </div>
                 )}
-             
               </div>
             </div>
           ) : (
-            <p>Loading Stone details...</p>
+            <p>LOADING STONE DETAILS...</p>
           )}
         </div>
       </div>

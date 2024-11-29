@@ -4,7 +4,7 @@ import { CForm, CFormInput, CFormLabel, CFormSelect } from '@coreui/react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import axios from 'axios';
 
-const CreateBill = () => {
+const CreateSscBill = () => {
 
     const { state } = useLocation();
     const { billerName  } = state || {}; 
@@ -163,4 +163,4 @@ const CreateBill = () => {
     );
 };
 
-export default CreateBill;
+export default CreateSscBill;

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './PreviewBill.css';
 
-const PreviewBill = () => {
+const PreviewSscBill = () => {
   const [bill, setBill] = useState(null); // State to store the fetched bill
   const { state } = useLocation(); // Retrieve the state from navigation
   const { billId, material, type ,billerName} = state || {}; // Extract billId, material, and type from the state
@@ -87,7 +87,7 @@ const PreviewBill = () => {
         ) : (
           <div>No bill available</div>
         )}
-        <p className='text-dark fs-4 fw-bold text-center'>BSC</p>
+        <p className='text-dark fs-4 fw-bold text-center'>SSC</p>
       </div>
 
       <div className="invoice-footer">
@@ -100,4 +100,4 @@ const PreviewBill = () => {
   );
 };
 
-export default PreviewBill;
+export default PreviewSscBill;

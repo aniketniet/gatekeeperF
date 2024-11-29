@@ -34,7 +34,7 @@ const AppSidebar = () => {
     >
       <CSidebarHeader > 
         <CSidebarBrand to="/">
-          <h3>GateKeeper</h3>
+          <h3 >GATEKEEPER</h3>
           {/* <CIcon customClassName="sidebar-brand-full" height={32} /> */}
           {/* <CImage src={'https://res.cloudinary.com/dr4iluda9/image/upload/v1719553407/ezio_vendor/logo.svg'} height={'50px'} width={50} fluid /> */}
           {/* <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} /> */}

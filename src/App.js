@@ -27,6 +27,11 @@ import CreateBill from './views/pages/createBill/CreateBill'
 import PreviewBill from './views/pages/createBill/PreviewBill'
 import EditUser from './views/pages/users/EditUser'
 import Audio from './views/dashboard/AudioList'
+import CreateBillLogin from './views/pages/createBill/CreateBillLogin'
+import CreateSscBill from './views/pages/sssccreateBill/CreateBill'
+import CreateSrcBill from './views/pages/srsccreateBill/CreateBillSrc'
+import PreviewSrcBill from './views/pages/srsccreateBill/PreviewBill'
+import PreviewSscBill from './views/pages/sssccreateBill/PreviewBill'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -70,8 +75,7 @@ const App = () => {
           <Route path='/:type/material/materialEdit/:id' element={<EditMaterial/>} />
           <Route path='/:type/stone/stoneEdit/:id' element={<EditStone/>} />
           <Route path='/:type/extra/extraEdit/:id' element={<EditExtra/>} />
-          <Route path='/createbill' element={<CreateBill/>} />
-          <Route path='/previewbill' element={<PreviewBill/>} />
+         
           <Route path='/audiolist' element={<Audio/>} />
 
 
@@ -87,6 +91,20 @@ const App = () => {
           <Route path='/sos' element={<Sos />} />
           <Route path='/user/orders/:id' element={<Orders />} /> 
           <Route path="*" name="Home" element={<DefaultLayout />} />
+
+          {/* create bill */}
+
+          <Route path='/billlogin' element={<CreateBillLogin/>} />
+          <Route path='/billlssclogin' element={<CreateSscBill/>} />
+          <Route path='/billlsrsclogin' element={<CreateSrcBill/>} />
+          <Route path='/createbill' element={<CreateBill/>} />
+          <Route path='/createsrscbill' element={<CreateSrcBill/>} />
+          <Route path='/createsscbill' element={<CreateSscBill/>} />
+          <Route path='/previewbill' element={<PreviewBill/>} />
+          <Route path='/previewsrscbill' element={<PreviewSrcBill/>} />
+          <Route path='/previewsscbill' element={<PreviewSscBill/>} />
+         
+
         </Routes>
       </Suspense>
     </HashRouter>

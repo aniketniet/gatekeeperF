@@ -50,7 +50,7 @@ const AppHeaderDropdown = () => {
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>
-        <CAvatar color="primary" textColor="white">{first_letter}</CAvatar>
+        <CAvatar style={{'cursor': "pointer",backgroundColor:'#0077ff'}}  textColor="white">{first_letter}</CAvatar>
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         {/* <CDropdownItem onClick={() => navigate('/profile')} style={{'cursor': "pointer"}} >

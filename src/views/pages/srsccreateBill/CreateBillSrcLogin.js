@@ -19,7 +19,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import axios from 'axios'
 import Loader from '../../../Loader'
 
-const Login = () => {
+const SrcLogin = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +35,7 @@ const Login = () => {
       };
   
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}auth/admin-login`, 
+        `${import.meta.env.VITE_BASE_URL}auth/login`, 
         creds
       );
       console.log(response, 'res')
@@ -46,6 +46,9 @@ const Login = () => {
           
   
       if (response.status === 200) {
+
+        const billerName= response.data.user.name;
+        // console.log(billerName, 'billerName');
        // Log the response data for debugging
         console.log(response.data);
   
@@ -54,7 +57,8 @@ const Login = () => {
         localStorage.setItem('token', response.data.token); // Storing the token
   
      // Navigate to the dashboard
-        navigate("/dashboard");
+        // navigate("/createbill");
+        navigate('/createbill', { state: { billerName} });
       } else {
         alert("Login failed: Invalid credentials.");
       }
@@ -78,7 +82,7 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h1>Login</h1>
+                    <h3>Login To Generate Slip</h3>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
@@ -123,4 +127,4 @@ const Login = () => {
 
 };
 
-export default Login;
+export default SrcLogin;
