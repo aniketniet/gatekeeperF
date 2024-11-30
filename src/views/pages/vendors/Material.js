@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import CIcon from '@coreui/icons-react'
 import {
@@ -15,6 +16,10 @@ import { AppSidebar, AppHeader } from '../../../components/index'
 import Loader from '../../../Loader'
 import { useParams } from 'react-router-dom'
 import * as XLSX from 'xlsx' // Import the xlsx library
+import PrintPage from './MarterialPrintPage'
+
+
+// import { start } from '@popperjs/core'
 // import { jsPDF } from 'jspdf';
 // import 'jspdf-autotable';
 
@@ -28,6 +33,10 @@ const Material = () => {
   const [selectedUsers, setSelectedUsers] = useState([])
   const [filteredServices, setFilteredServices] = useState([])
   const { type } = useParams() // Read the 'type' parameter from the URL
+  const navigate = useNavigate(); 
+
+  console.log(startDate, 'startDate')
+  console.log(endDate, 'endDate')
  
 
   const token = localStorage.getItem('token')
@@ -54,28 +63,50 @@ const Material = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
-  // const handleDownloadPDF = () => {
-  //   const doc = new jsPDF();
-  //   const tableData = filteredServices.length > 0 ? filteredServices : services;
-  //   const tableColumns = columns
-  //     .filter((column) => column.header)
-  //     .map((column) => column.header);
 
-  //   const tableRows = tableData.map((row) => {
-  //     return columns
-  //       .filter((column) => column.accessorKey)
-  //       .map((column) => (column.accessorFn ? column.accessorFn(row) : row[column.accessorKey]));
-  //   });
 
-  //   doc.autoTable({
-  //     head: [tableColumns],
-  //     body: tableRows,
-  //     startY: 20,
-  //     theme: 'grid',
-  //   });
-
-  //   doc.save('material-list.pdf');
-  // };
+  const handleDownloadPDF = () => {
+    // const navigate = useNavigate();
+    // Filter data based on the date range and format
+    const filteredData = services.filter((item) => {
+      const createdAt = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(new Date(item.created_at));
+      return (
+        (!startDate || createdAt >= new Date(startDate)) &&
+        (!endDate || createdAt <= new Date(endDate))
+      );
+    });
+  
+    // Map the filtered data to include only the required fields
+    const formattedData = filteredData.map((item, index) => ({
+      SR_No: index + 1,
+      category: item.category,
+      remark: item.remark,
+      rst: item.rst,
+      vehicle_number: item.vehicle_number,
+      final_weight: item.final_weight,
+      material: item.material,
+      created_at: new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(new Date(item.created_at)),
+      created_by: item.created_by,
+    }));
+  
+    // Navigate to PrintPage with the data passed as state
+    navigate('/printPage', { state: { materials: formattedData, type ,tableTyle:"material" } });
+  };
+  
   async function getUsers() {
     setLoading(true)
     try {
@@ -91,13 +122,6 @@ const Material = () => {
         allMaterials = allMaterials.filter((item) => item.category === type)
       }
 
-      // Filter by date range
-      if (startDate && endDate) {
-        allMaterials = allMaterials.filter((item) => {
-          const createdAt = new Date(item.created_at)
-          return createdAt >= new Date(startDate) && createdAt <= new Date(endDate)
-        })
-      }
 
       setServices(allMaterials)
     } catch (error) {
@@ -132,23 +156,7 @@ const Material = () => {
     }
   }
 
-  // function handleDownloadExcel() {
-  //   const worksheet = XLSX.utils.json_to_sheet(services);
-  //   const workbook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Materials');
-  //   XLSX.writeFile(workbook, `materials_${new Date().toISOString()}.xlsx`);
-  // }
-
-  // const matchingData =
-  //   .filter((item) => userName.includes(item.created_by))
-  //   .sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-  //   console.log(matchingData, 'matchingData');
-  //   console.log(userName, 'userName');
-
-  // Filter data based on selected users and date range
-
-  // Handle user selection with checkboxes
+  // Function to handle user selection
   const handleUserSelect = (userName) => {
     setSelectedUsers(
       (prev) =>
@@ -162,9 +170,14 @@ const Material = () => {
   const handleFilter = () => {
     console.log(selectedUsers, 'selectedUsers')
     const filteredData = services.filter((item) => {
-      console.log(item.created_by, 'item.created_by')
+      // console.log(item.created_by, 'item.created_by')
 
-      const createdAt = new Date(item.created_at)
+      const createdAt = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      }).format(new Date(item.created_at))
+      console.log(createdAt, 'createdAt')
       // Filter based on date range and matching created_by value
       return (
         (!startDate || createdAt >= new Date(startDate)) &&
@@ -179,10 +192,18 @@ const Material = () => {
     }
     setFilteredServices(filteredData)
   }
+
   function handleDownloadExcel() {
     // Filter data based on the date range
-    const filteredData = filteredServices.filter((item) => {
-      const createdAt = new Date(item.created_at)
+    const filteredData = services.filter((item) => {
+      const createdAt = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(new Date(item.created_at))
       return (
         (!startDate || createdAt >= new Date(startDate)) &&
         (!endDate || createdAt <= new Date(endDate))
@@ -365,9 +386,9 @@ const Material = () => {
                 >
                   Delete
                 </button>
-                {/* <button className="btn btn-info" onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
+                <button className="btn btn-info" onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
                 Download PDF
-              </button> */}
+              </button> 
               </div>
             </div>
 

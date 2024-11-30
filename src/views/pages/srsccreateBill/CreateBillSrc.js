@@ -1,24 +1,17 @@
 import React, { useState } from 'react';
-
 import { CForm, CFormInput, CFormLabel, CFormSelect } from '@coreui/react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
-const CreateSrcBill = () => {
-
+const CreateBill = () => {
     const { state } = useLocation();
-    const { billerName  } = state || {}; 
-
-
-    // console.log(billerName, 'billerName');
-
+    const { billerName } = state || {};
 
     const [formData, setFormData] = useState({
         rto: '',
         vehicleNumber: '',
-        fieldName: '',
         material: '',
-        type: '',
+        category: '',
     });
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -33,9 +26,9 @@ const CreateSrcBill = () => {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const { rto, vehicleNumber,  material, type } = formData;
+        const { rto, vehicleNumber, material, category } = formData;
 
-        if (!rto || !vehicleNumber  || !material || !type) {
+        if (!rto || !vehicleNumber || !material || !category) {
             alert('Please fill all fields');
             return;
         }
@@ -43,13 +36,12 @@ const CreateSrcBill = () => {
         const payload = {
             rstno: rto,
             vehicle_number: vehicleNumber,
-            name: "GATEKEEPER",
             material,
-            type,
+            category,
         };
 
         try {
-            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}admin/set-bills`, payload, {
+            const res = await axios.post(`${import.meta.env.VITE_BASE_URL}admin/set-bills-srsc`, payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -57,9 +49,9 @@ const CreateSrcBill = () => {
             });
 
             if (res.status === 201) {
-                const billId = res.data.data._id; // Extract billId
+                const billId = res.data.data._id;
                 console.log(billId, 'Bill ID');
-                navigate('/previewbill', { state: { billId, material, type,billerName } }); // Pass billId, material, and type
+                navigate('/previewsrscbill', { state: { billId, material, type: category } });
             } else {
                 alert('Failed to create bill');
             }
@@ -69,33 +61,53 @@ const CreateSrcBill = () => {
         }
     }
 
+    async function resetCount() {
+        try {
+            const res = await axios.put(`${import.meta.env.VITE_BASE_URL}admin/reset-srsc-counter`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (res.status === 200) {
+                alert('Counter reset successfully');
+            } else {
+                alert('Failed to reset counter');
+            }
+        } catch (error) {
+            console.error('Error resetting counter:', error);
+            alert('An error occurred while resetting the counter');
+        }
+    }
+
     return (
         <>
-            
             <div className="wrapper d-flex flex-column min-vh-100 mt-5">
-             
                 <div className="body flex-grow-1">
                     <div className="mx-3">
-                        
                         <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h4 className="mb-2">GENERATE SLIP</h4>
-                            <button
-                                className="btn btn-danger"
-                                onClick={() => {
-                                    localStorage.removeItem('token');
-                                    navigate('/billlogin');
-                                }}
-                            >
-                                Logout
-                            </button>
+                            <h4 className="mb-2">GENERATE SRSC SLIP</h4>
+                            <div className='d-flex gap-2'>
+                                <button className="btn btn-primary" onClick={resetCount}>RESET COUNT</button>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => {
+                                        localStorage.removeItem('token');
+                                        navigate('/billlsrsclogin');
+                                    }}
+                                >
+                                    Logout
+                                </button>
+                            </div>
                         </div>
                         <div className="row justify-content-center">
                             <div className="col-lg-8">
                                 <CForm className="p-4 rounded shadow-sm" onSubmit={handleSubmit}>
                                     <div className="mb-3">
-                                        <CFormLabel htmlFor="rto" className="form-label d-flex ">
-                                         RST &nbsp; <span className="text-white rounded-circle bg-primary px-1" >1</span>
-                                            </CFormLabel>
+                                        <CFormLabel htmlFor="rto" className="form-label d-flex">
+                                            RST &nbsp; <span className="text-white rounded-circle bg-primary px-1">1</span>
+                                        </CFormLabel>
                                         <CFormInput
                                             type="text"
                                             name="rto"
@@ -114,15 +126,12 @@ const CreateSrcBill = () => {
                                             onChange={handleChange}
                                         />
                                     </div>
-                                    
-                                        <input
-                                            type="hidden"
-                                            name="fieldName"
-                                            placeholder="Enter Field Name"
-                                            className="form-control"
-                                            value="GATEKEEPER"
-                                        />
-                                   
+                                    <input
+                                        type="hidden"
+                                        name="fieldName"
+                                        className="form-control"
+                                        value="GATEKEEPER"
+                                    />
                                     <div className="mb-4">
                                         <label htmlFor="material" className="form-label">CATEGORY</label>
                                         <CFormSelect
@@ -137,9 +146,9 @@ const CreateSrcBill = () => {
                                         </CFormSelect>
                                     </div>
                                     <div className="mb-4">
-                                        <label htmlFor="type" className="form-label">MATERIAL</label>
+                                        <label htmlFor="category" className="form-label">MATERIAL</label>
                                         <CFormSelect
-                                            name="type"
+                                            name="category"
                                             className="form-select"
                                             onChange={handleChange}
                                         >
@@ -163,4 +172,4 @@ const CreateSrcBill = () => {
     );
 };
 
-export default CreateSrcBill;
+export default CreateBill;

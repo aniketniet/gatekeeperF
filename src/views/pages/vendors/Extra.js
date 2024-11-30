@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useMemo, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams ,useNavigate} from 'react-router-dom'
+
 import { MantineReactTable, useMantineReactTable } from 'mantine-react-table'
 import CIcon from '@coreui/icons-react'
 import { cilTrash, cilColorBorder, cilDescription } from '@coreui/icons'
@@ -18,6 +19,7 @@ const Extra = () => {
   const [selectedUsers, setSelectedUsers] = useState([])
   const [filteredServices, setFilteredServices] = useState([])
   const { type } = useParams() // Read the 'type' parameter from the URL
+  const navigate = useNavigate()
   const token = localStorage.getItem('token')
 
 
@@ -80,6 +82,51 @@ const Extra = () => {
       setLoading(false)
     }
   }
+
+
+
+  // Handle PDF file download
+  const handleDownloadPDF = () => {
+    // const navigate = useNavigate();
+    // Filter data based on the date range and format
+    const filteredData = Stone.filter((item) => {
+      const createdAt = new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(new Date(item.created_at));
+      return (
+        (!startDate || createdAt >= new Date(startDate)) &&
+        (!endDate || createdAt <= new Date(endDate))
+      );
+    });
+  
+    // Map the filtered data to include only the required fields
+    const formattedData = filteredData.map((item, index) => ({
+      SR_No: index + 1,
+      category: item.category,
+      remark: item.remark,
+      rst: item.rst,
+      vehicle_number: item.vehicle_number,
+      final_weight: item.final_weight,
+      material: item.material,
+      created_at: new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(new Date(item.created_at)),
+      created_by: item.created_by,
+    }));
+  
+    // Navigate to PrintPage with the data passed as state
+    navigate('/printPage', { state: { materials: formattedData, type,tableTyle:"extra" } });
+  };
 
   // Handle deletion of old extras
   async function handleDelete() {
@@ -332,6 +379,9 @@ const Extra = () => {
                 >
                   Delete
                 </button>
+                <button className="btn btn-info" onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
+                Download PDF
+              </button> 
               </div>
             </div>
             <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>

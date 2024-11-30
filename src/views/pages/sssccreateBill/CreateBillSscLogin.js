@@ -58,7 +58,7 @@ const SscLogin = () => {
   
      // Navigate to the dashboard
         // navigate("/createbill");
-        navigate('/createbill', { state: { billerName} });
+        navigate('/createsscbill', { state: { billerName} });
       } else {
         alert("Login failed: Invalid credentials.");
       }
@@ -82,7 +82,7 @@ const SscLogin = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h3>Login To Generate Slip</h3>
+                    <h3>Login To Generate SSC Slip</h3>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
