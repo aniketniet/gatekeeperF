@@ -90,28 +90,28 @@ const Material = () => {
     //   )
     // })
 
-    // // Map the filtered data to include only the required fields
-    // const formattedData = filteredData.map((item, index) => ({
-    //   SR_No: index + 1,
-    //   category: item.category,
-    //   remark: item.remark,
-    //   rst: item.rst,
-    //   vehicle_number: item.vehicle_number,
-    //   final_weight: item.final_weight,
-    //   material: item.material,
-    //   created_at: new Intl.DateTimeFormat('en-GB', {
-    //     day: '2-digit',
-    //     month: '2-digit',
-    //     year: 'numeric',
-    //     hour: '2-digit',
-    //     minute: '2-digit',
-    //     second: '2-digit',
-    //   }).format(new Date(item.created_at)),
-    //   created_by: item.created_by,
-    // }))
+    // Map the filtered data to include only the required fields
+    const formattedData = filteredServices.map((item, index) => ({
+      SR_No: index + 1,
+      category: item.category,
+      remark: item.remark,
+      rst: item.rst,
+      vehicle_number: item.vehicle_number,
+      final_weight: item.final_weight,
+      material: item.material,
+      created_at: new Intl.DateTimeFormat('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(new Date(item.created_at)),
+      created_by: item.created_by,
+    }))
 
     // Navigate to PrintPage with the data passed as state
-    navigate('/printPage', { state: { materials: filteredServices, type, tableTyle: 'material' } })
+    navigate('/printPage', { state: { materials: formattedData, type, tableTyle: 'material' } })
   }
 
   async function getUsers() {
@@ -381,7 +381,7 @@ const Material = () => {
                   Delete
                 </button>
                 <button
-                  className="btn btn-info"
+                 className={filteredServices.length === 0 ? "btn btn-primary mx-2 disabled" : "btn btn-primary mx-2"}
                   onClick={handleDownloadPDF}
                   style={{ textTransform: 'uppercase' }}
                 >
@@ -395,14 +395,14 @@ const Material = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                style={{ textTransform: 'uppercase', width: 'auto' }}
+                style={{ textTransform: 'uppercase' }}
                 placeholder="Start Date"
               />
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                style={{ textTransform: 'uppercase', width: 'auto' }}
+                style={{ textTransform: 'uppercase' }}
                 placeholder="End Date"
               />
               <button

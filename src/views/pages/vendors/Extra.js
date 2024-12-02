@@ -104,23 +104,23 @@ const Extra = () => {
   const handleDownloadPDF = () => {
     // const navigate = useNavigate();
     // Filter data based on the date range and format
-    const filteredData = Stone.filter((item) => {
-      const createdAt = new Intl.DateTimeFormat('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(new Date(item.created_at));
-      return (
-        (!startDate || createdAt >= new Date(startDate)) &&
-        (!endDate || createdAt <= new Date(endDate))
-      );
-    });
+    // const filteredData = Stone.filter((item) => {
+    //   const createdAt = new Intl.DateTimeFormat('en-GB', {
+    //     day: '2-digit',
+    //     month: '2-digit',
+    //     year: 'numeric',
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit',
+    //   }).format(new Date(item.created_at));
+    //   return (
+    //     (!startDate || createdAt >= new Date(startDate)) &&
+    //     (!endDate || createdAt <= new Date(endDate))
+    //   );
+    // });
   
     // Map the filtered data to include only the required fields
-    const formattedData = filteredData.map((item, index) => ({
+    const formattedData = filteredServices.map((item, index) => ({
       SR_No: index + 1,
       category: item.category,
       remark: item.remark,
@@ -402,7 +402,7 @@ const Extra = () => {
                 >
                   Delete
                 </button>
-                <button className="btn btn-info" onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
+                <button className={filteredServices.length === 0 ? "btn btn-primary mx-2 disabled" : "btn btn-primary mx-2"}onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
                 Download PDF
               </button> 
               </div>
