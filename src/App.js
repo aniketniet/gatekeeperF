@@ -99,9 +99,9 @@ const App = () => {
 
           {/* create bill */}
 
-          <Route path='/billlogin' element={<CreateBillLogin/>} />
-          <Route path='/billlssclogin' element={<SscLogin/>} />
-          <Route path='/billlsrsclogin' element={<SrcLogin/>} />
+          <Route path='/billbsclogin' element={<CreateBillLogin/>} />
+          <Route path='/billssclogin' element={<SscLogin/>} />
+          <Route path='/billsrsclogin' element={<SrcLogin/>} />
           <Route path='/createbill' element={<CreateBill/>} />
           <Route path='/createsrscbill' element={<CreateSrcBill/>} />
           <Route path='/createsscbill' element={<CreateSscBill/>} />

@@ -47,6 +47,19 @@ const Extra = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
+  const handleClickOutside = (event) => {
+    if (!event.target.closest('.dropdown')) {
+      setIsDropdownOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
 
 
 
@@ -68,12 +81,14 @@ const Extra = () => {
       }
 
       // Filter extras based on 'startDate' and 'endDate'
-      if (startDate && endDate) {
-        allExtras = allExtras.filter((item) => {
-          const createdAt = new Date(item.created_at)
-          return createdAt >= new Date(startDate) && createdAt <= new Date(endDate)
-        })
-      }
+      // if (startDate && endDate) {
+      //   allExtras = allExtras.filter((item) => {
+      //     const createdAt = new Date(item.created_at)
+      //     return createdAt >= new Date(startDate) && createdAt <= new Date(endDate)
+      //   })
+      // }
+
+
 
       setStone(allExtras)
     } catch (error) {
@@ -180,21 +195,29 @@ const Extra = () => {
   const handleFilter = () => {
     console.log(selectedUsers, 'selectedUsers')
     const filteredData = Stone.filter((item) => {
-      console.log(item.created_by, 'item.created_by')
+      // Convert item.created_at to a comparable date format (ISO format)
+      const createdAt = new Date(item.created_at).toISOString().split('T')[0] // Format as YYYY-MM-DD
+      console.log(createdAt, 'createdAt')
 
-      const createdAt = new Date(item.created_at)
-      // Filter based on date range and matching created_by value
-      return (
-        (!startDate || createdAt >= new Date(startDate)) &&
-        (!endDate || createdAt <= new Date(endDate)) &&
-        selectedUsers.includes(item.created_by)
-      )
+      // Ensure startDate and endDate are in comparable format
+      const start = startDate ? new Date(startDate).toISOString().split('T')[0] : null
+      const end = endDate ? new Date(endDate).toISOString().split('T')[0] : null
+
+      console.log(start, 'start')
+      console.log(end, 'end')
+
+      if (selectedUsers.length === 0) {
+        // Filter based on date range and matching created_by value
+        return createdAt >= start && createdAt <= end
+      } else if( !start && !end){
+        return selectedUsers.includes(item.created_by)
+      } else {
+        return selectedUsers.includes(item.created_by) && createdAt >= start && createdAt <= end
+      }
     })
 
     console.log(filteredData, 'filteredData')
-    if (filteredData.length === 0) {
-      alert('No matching users found.');
-    }
+
     setFilteredServices(filteredData)
   }
 
@@ -202,16 +225,16 @@ const Extra = () => {
 
   function handleDownloadExcel() {
     // Filter data based on the date range
-    const filteredData = filteredServices.filter((item) => {
-      const createdAt = new Date(item.created_at)
-      return (
-        (!startDate || createdAt >= new Date(startDate)) &&
-        (!endDate || createdAt <= new Date(endDate))
-      )
-    })
+    // const filteredData = filteredServices.filter((item) => {
+    //   const createdAt = new Date(item.created_at)
+    //   return (
+    //     (!startDate || createdAt >= new Date(startDate)) &&
+    //     (!endDate || createdAt <= new Date(endDate))
+    //   )
+    // })
 
     // Map the filtered data to include only the required fields
-    const formattedData = filteredData.map((item, index) => ({
+    const formattedData = filteredServices.map((item, index) => ({
       SR_No: index + 1,
       category: item.category,
       remark: item.remark,
@@ -365,8 +388,8 @@ const Extra = () => {
                 Extra-{type}
               </h4>
               <div>
-                <button
-                  className="btn btn-primary mx-2"
+               <button
+                  className={filteredServices.length === 0 ? "btn btn-primary mx-2 disabled" : "btn btn-primary mx-2"}
                   onClick={handleDownloadExcel}
                   style={{ textTransform: 'uppercase' }}
                 >

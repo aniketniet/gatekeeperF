@@ -18,7 +18,6 @@ import { useParams } from 'react-router-dom'
 import * as XLSX from 'xlsx' // Import the xlsx library
 import PrintPage from './MarterialPrintPage'
 
-
 // import { start } from '@popperjs/core'
 // import { jsPDF } from 'jspdf';
 // import 'jspdf-autotable';
@@ -33,11 +32,7 @@ const Material = () => {
   const [selectedUsers, setSelectedUsers] = useState([])
   const [filteredServices, setFilteredServices] = useState([])
   const { type } = useParams() // Read the 'type' parameter from the URL
-  const navigate = useNavigate(); 
-
-  console.log(startDate, 'startDate')
-  console.log(endDate, 'endDate')
- 
+  const navigate = useNavigate()
 
   const token = localStorage.getItem('token')
 
@@ -64,49 +59,61 @@ const Material = () => {
     setIsDropdownOpen(!isDropdownOpen)
   }
 
+  const handleClickOutside = (event) => {
+    if (!event.target.closest('.dropdown')) {
+      setIsDropdownOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
 
   const handleDownloadPDF = () => {
     // const navigate = useNavigate();
     // Filter data based on the date range and format
-    const filteredData = services.filter((item) => {
-      const createdAt = new Intl.DateTimeFormat('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(new Date(item.created_at));
-      return (
-        (!startDate || createdAt >= new Date(startDate)) &&
-        (!endDate || createdAt <= new Date(endDate))
-      );
-    });
-  
-    // Map the filtered data to include only the required fields
-    const formattedData = filteredData.map((item, index) => ({
-      SR_No: index + 1,
-      category: item.category,
-      remark: item.remark,
-      rst: item.rst,
-      vehicle_number: item.vehicle_number,
-      final_weight: item.final_weight,
-      material: item.material,
-      created_at: new Intl.DateTimeFormat('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(new Date(item.created_at)),
-      created_by: item.created_by,
-    }));
-  
+    // const filteredData = filteredServices.filter((item) => {
+    //   const createdAt = new Intl.DateTimeFormat('en-GB', {
+    //     day: '2-digit',
+    //     month: '2-digit',
+    //     year: 'numeric',
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit',
+    //   }).format(new Date(item.created_at))
+    //   return (
+    //     (!startDate || createdAt >= new Date(startDate)) &&
+    //     (!endDate || createdAt <= new Date(endDate))
+    //   )
+    // })
+
+    // // Map the filtered data to include only the required fields
+    // const formattedData = filteredData.map((item, index) => ({
+    //   SR_No: index + 1,
+    //   category: item.category,
+    //   remark: item.remark,
+    //   rst: item.rst,
+    //   vehicle_number: item.vehicle_number,
+    //   final_weight: item.final_weight,
+    //   material: item.material,
+    //   created_at: new Intl.DateTimeFormat('en-GB', {
+    //     day: '2-digit',
+    //     month: '2-digit',
+    //     year: 'numeric',
+    //     hour: '2-digit',
+    //     minute: '2-digit',
+    //     second: '2-digit',
+    //   }).format(new Date(item.created_at)),
+    //   created_by: item.created_by,
+    // }))
+
     // Navigate to PrintPage with the data passed as state
-    navigate('/printPage', { state: { materials: formattedData, type ,tableTyle:"material" } });
-  };
-  
+    navigate('/printPage', { state: { materials: filteredServices, type, tableTyle: 'material' } })
+  }
+
   async function getUsers() {
     setLoading(true)
     try {
@@ -121,7 +128,6 @@ const Material = () => {
       if (type) {
         allMaterials = allMaterials.filter((item) => item.category === type)
       }
-
 
       setServices(allMaterials)
     } catch (error) {
@@ -170,47 +176,35 @@ const Material = () => {
   const handleFilter = () => {
     console.log(selectedUsers, 'selectedUsers')
     const filteredData = services.filter((item) => {
-      // console.log(item.created_by, 'item.created_by')
-
-      const createdAt = new Intl.DateTimeFormat('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      }).format(new Date(item.created_at))
+      // Convert item.created_at to a comparable date format (ISO format)
+      const createdAt = new Date(item.created_at).toISOString().split('T')[0] // Format as YYYY-MM-DD
       console.log(createdAt, 'createdAt')
-      // Filter based on date range and matching created_by value
-      return (
-        (!startDate || createdAt >= new Date(startDate)) &&
-        (!endDate || createdAt <= new Date(endDate)) &&
-        selectedUsers.includes(item.created_by)
-      )
+
+      // Ensure startDate and endDate are in comparable format
+      const start = startDate ? new Date(startDate).toISOString().split('T')[0] : null
+      const end = endDate ? new Date(endDate).toISOString().split('T')[0] : null
+
+      console.log(start, 'start')
+      console.log(end, 'end')
+
+      if (selectedUsers.length === 0) {
+        // Filter based on date range and matching created_by value
+        return createdAt >= start && createdAt <= end
+      } else if( !start && !end){
+        return selectedUsers.includes(item.created_by)
+      } else {
+        return selectedUsers.includes(item.created_by) && createdAt >= start && createdAt <= end
+      }
     })
 
     console.log(filteredData, 'filteredData')
-    if (filteredData.length === 0) {
-      alert('No matching users found.');
-    }
+
     setFilteredServices(filteredData)
   }
 
   function handleDownloadExcel() {
-    // Filter data based on the date range
-    const filteredData = services.filter((item) => {
-      const createdAt = new Intl.DateTimeFormat('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }).format(new Date(item.created_at))
-      return (
-        (!startDate || createdAt >= new Date(startDate)) &&
-        (!endDate || createdAt <= new Date(endDate))
-      )
-    })
-    // Map the filtered data to include only the required fields
-    const formattedData = filteredData.map((item, index) => ({
+    // Filter data based on the date range and format
+    const formattedData = filteredServices.map((item, index) => ({
       SR_No: index + 1,
       category: item.category,
       remark: item.remark,
@@ -373,7 +367,7 @@ const Material = () => {
               </h4>
               <div>
                 <button
-                  className="btn btn-primary mx-2"
+                   className={filteredServices.length === 0 ? "btn btn-primary mx-2 disabled" : "btn btn-primary mx-2"}
                   onClick={handleDownloadExcel}
                   style={{ textTransform: 'uppercase' }}
                 >
@@ -386,9 +380,13 @@ const Material = () => {
                 >
                   Delete
                 </button>
-                <button className="btn btn-info" onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
-                Download PDF
-              </button> 
+                <button
+                  className="btn btn-info"
+                  onClick={handleDownloadPDF}
+                  style={{ textTransform: 'uppercase' }}
+                >
+                  Download PDF
+                </button>
               </div>
             </div>
 
@@ -397,14 +395,14 @@ const Material = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                style={{ textTransform: 'uppercase' }}
+                style={{ textTransform: 'uppercase', width: 'auto' }}
                 placeholder="Start Date"
               />
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                style={{ textTransform: 'uppercase' }}
+                style={{ textTransform: 'uppercase', width: 'auto' }}
                 placeholder="End Date"
               />
               <button
@@ -435,15 +433,18 @@ const Material = () => {
                   </ul>
                 )}
               </div>
-               {/* //reset filter */}
+              {/* //reset filter */}
 
-               <button className="btn btn-secondary" onClick={() => {
-                setStartDate('')
-                setEndDate('')
-                setSelectedUsers([])
-                setFilteredServices([])
-              }
-              }  style={{ textTransform: 'uppercase' }}>
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  setStartDate('')
+                  setEndDate('')
+                  setSelectedUsers([])
+                  setFilteredServices([])
+                }}
+                style={{ textTransform: 'uppercase' }}
+              >
                 Reset Filters
               </button>
             </div>

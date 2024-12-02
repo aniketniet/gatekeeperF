@@ -12,7 +12,7 @@ const _nav = [
     component: CNavItem,
     name: 'DASHBOARD',
     to: '/dashboard',
-    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
+    icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
   },
   {
     component: CNavTitle,
@@ -22,13 +22,13 @@ const _nav = [
     component: CNavItem,
     name: 'ALL USERS',
     to: '/users',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
   },
   {
     component: CNavItem,
     name: 'CREATE USER',
     to: '/user/create',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
   },
   {
     component: CNavTitle,
@@ -37,7 +37,7 @@ const _nav = [
   {
     component: CNavGroup, // Collapsible group for dropdown
     name: 'BSC',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
     items: [
       {
         component: CNavItem,
@@ -59,7 +59,7 @@ const _nav = [
   {
     component: CNavGroup, // Collapsible group for dropdown
     name: 'SRSC',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
     items: [
       {
         component: CNavItem,
@@ -81,7 +81,7 @@ const _nav = [
   {
     component: CNavGroup, // Collapsible group for dropdown
     name: 'SSC',
-    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff" }} />,
+    icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
     items: [
       {
         component: CNavItem,
