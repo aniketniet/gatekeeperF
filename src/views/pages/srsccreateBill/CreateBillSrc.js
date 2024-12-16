@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { CForm, CFormInput, CFormLabel, CFormSelect } from '@coreui/react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const CreateBill = () => {
+    const [count, setCount] = useState(""); // State for the counter value
     const { state } = useLocation();
     const { billerName } = state || {};
 
@@ -23,6 +24,34 @@ const CreateBill = () => {
             [name]: value,
         });
     }
+
+
+
+        // Fetch the counter value on component mount
+
+        async function fetchCount() {
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/srsc-bill-count`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (res.status === 200) {
+                    setCount(res.data.count); // Update the counter state with the fetched count
+                } else {
+                    console.error('Failed to fetch count');
+                }
+            } catch (error) {
+                console.error('Error fetching count:', error);
+            }
+        }
+        useEffect(() => {
+         
+    
+            fetchCount();
+        }, [token]);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -72,6 +101,7 @@ const CreateBill = () => {
 
             if (res.status === 200) {
                 alert('Counter reset successfully');
+                fetchCount();
             } else {
                 alert('Failed to reset counter');
             }
@@ -87,14 +117,17 @@ const CreateBill = () => {
                 <div className="body flex-grow-1">
                     <div className="mx-3">
                         <div className="d-flex justify-content-between align-items-center mb-4">
-                            <h4 className="mb-2">GENERATE SRSC SLIP</h4>
-                            <div className='d-flex gap-2'>
-                                <button className="btn btn-primary" onClick={resetCount}>RESET COUNT</button>
+                            <h4 className="mb-2 btn btn-primary fs-4 fw-bold" style={{backgroundColor:"#0077ff"}}> S.R.S.C SLIP</h4>
+                            <div className='d-flex align-items-center  gap-4'>
+                               <p className="fs-3 fw-bold mt-3">{count || "0"}</p> 
+                                <button className="btn text-white fs-4 fw-bold"  style={{backgroundColor:"#0077ff"}} onClick={resetCount}>
+                                    RESET COUNT  {/* Display the count state or N/A if empty */}
+                                </button>
                                 <button
-                                    className="btn btn-danger"
+                                    className="btn btn-danger text-white fs-4 fw-bold"
                                     onClick={() => {
                                         localStorage.removeItem('token');
-                                        navigate('/billlsrsclogin');
+                                        navigate('/billsrsclogin');
                                     }}
                                 >
                                     Logout
@@ -105,8 +138,8 @@ const CreateBill = () => {
                             <div className="col-lg-8">
                                 <CForm className="p-4 rounded shadow-sm" onSubmit={handleSubmit}>
                                     <div className="mb-3">
-                                        <CFormLabel htmlFor="rto" className="form-label d-flex">
-                                            RST &nbsp; <span className="text-white rounded-circle bg-primary px-1">1</span>
+                                        <CFormLabel htmlFor="rto" className="form-label d-flex fs-3 fw-bold">
+                                            RST(1)
                                         </CFormLabel>
                                         <CFormInput
                                             type="text"
@@ -114,39 +147,29 @@ const CreateBill = () => {
                                             placeholder="Enter RST"
                                             className="form-control"
                                             onChange={handleChange}
+                                             autoComplete="off"
                                         />
                                     </div>
                                     <div className="mb-4">
-                                        <label htmlFor="vehicleNumber" className="form-label">VEHICLE NUMBER</label>
+                                        <label htmlFor="vehicleNumber" className="form-label fs-3 fw-bold">VEHICLE NUMBER</label>
                                         <input
                                             type="text"
                                             name="vehicleNumber"
                                             placeholder="Enter Vehicle Number"
                                             className="form-control"
                                             onChange={handleChange}
+                                             autoComplete="off"
                                         />
                                     </div>
                                     <input
                                         type="hidden"
                                         name="fieldName"
                                         className="form-control"
-                                        value="GATEKEEPER"
+                                        value="TROOPER"
+                                         autoComplete="off"
                                     />
-                                    <div className="mb-4">
-                                        <label htmlFor="material" className="form-label">CATEGORY</label>
-                                        <CFormSelect
-                                            name="material"
-                                            className="form-select"
-                                            onChange={handleChange}
-                                        >
-                                            <option value="">SELECT CATEGORY</option>
-                                            <option value="Material">MATERIAL</option>
-                                            <option value="Stone">STONE</option>
-                                            <option value="Extra">EXTRA</option>
-                                        </CFormSelect>
-                                    </div>
-                                    <div className="mb-4">
-                                        <label htmlFor="category" className="form-label">MATERIAL</label>
+                                          <div className="mb-4">
+                                        <label htmlFor="category" className="form-label fs-3 fw-bold ">MATERIAL</label>
                                         <CFormSelect
                                             name="category"
                                             className="form-select"
@@ -159,8 +182,31 @@ const CreateBill = () => {
                                             <option value="EXTRA">EXTRA</option>
                                         </CFormSelect>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">
-                                        Submit
+                                    <div className="mb-4">
+                                        <label htmlFor="material" className="form-label fs-3 fw-bold">REMARK</label>
+                                        {/* <CFormSelect
+                                            name="material"
+                                            className="form-select"
+                                            onChange={handleChange}
+                                        >
+                                            <option value="">SELECT CATEGORY</option>
+                                            <option value="Material">MATERIAL</option>
+                                            <option value="Stone">STONE</option>
+                                            <option value="Extra">EXTRA</option>
+                                        </CFormSelect> */}
+                                            <input
+                                            type="text"
+                                            name="material"
+                                            placeholder="Enter Remark"
+                                            className="form-control"
+                                            onChange={handleChange}
+                                            autoComplete="off"
+                                        />
+                                        
+                                    </div>
+                              
+                                    <button type="submit" className="btn fs-3 fw-bold" style={{backgroundColor:"#0077ff"}}>
+                                        GENERATE SLIP
                                     </button>
                                 </CForm>
                             </div>

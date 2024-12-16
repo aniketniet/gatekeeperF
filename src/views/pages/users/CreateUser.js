@@ -59,6 +59,7 @@ const CreateUser = () => {
                                             placeholder="User Name"
                                             className="form-control"
                                             onChange={handleChange}
+                                             autoComplete="off"
                                         />
                                     </div>
                                     <div className="mb-4">
@@ -69,6 +70,7 @@ const CreateUser = () => {
                                             placeholder="User Id"
                                             className="form-control"
                                             onChange={handleChange}
+                                             autoComplete="off"
                                         />
                                     </div>
                                     <div className="mb-4">
@@ -79,6 +81,7 @@ const CreateUser = () => {
                                             placeholder="Phone No. (10 digits)"
                                             className="form-control"
                                             onChange={handleChange}
+                                             autoComplete="off"
                                         />
                                     </div>
                                     <div className="mb-4">
@@ -89,6 +92,7 @@ const CreateUser = () => {
                                             placeholder="Password"
                                             className="form-control"
                                             onChange={handleChange}
+                                             autoComplete="off"
                                         />
                                     </div>
 

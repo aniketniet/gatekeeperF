@@ -82,7 +82,7 @@ const Login = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h3>Login To Generate BSC Slip</h3>
+                    <h3>Login To Generate B.S.C. Slip</h3>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>

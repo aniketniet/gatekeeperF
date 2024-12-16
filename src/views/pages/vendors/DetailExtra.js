@@ -58,8 +58,8 @@ const DetailExtra = () => {
 
         <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
           <div className="d-flex justify-content-between">
-            <h1>DETAIL EXTRA</h1>
-            <button className="btn bg-primary no-print" onClick={handlePrint}>
+            <h1 className='fs-1 fw-bold text-black'>DETAIL EXTRA</h1>
+            <button className="btn bg-primary no-print text-white fw-bold" onClick={handlePrint}>
               PRINT
             </button>
           </div>

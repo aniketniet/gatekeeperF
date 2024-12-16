@@ -81,22 +81,26 @@ const AllUsers = () => {
         () => [
             {
                 header: 'S NO.',
-                Cell: ({ row }) => row.index + 1,
+                Cell: ({ row }) => <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{row.index + 1}</span>,
                 size: 70, // Reduced size for "S No."
             },
             {
                 header: 'NAME',
                 accessorKey: 'name',
+                Cell: ({ cell }) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>,
+         
                 size: 150,
             },
             {
                 header: 'MOBILE',
                 accessorKey: 'phone',
+                Cell: ({ cell }) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>,
                 size: 150,
             },
             {
                 header: 'USER ID',
                 accessorKey: 'employeeId',
+                Cell: ({ cell }) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>,
                 size: 150,
             },
             {
@@ -112,7 +116,7 @@ const AllUsers = () => {
                             minute: '2-digit',
                             second: '2-digit',
                         };
-                        return new Intl.DateTimeFormat('en-GB', options).format(new Date(row.original.created_at));
+                        return <span style={{ fontSize: '18px', fontWeight: 'bold' }}>{new Intl.DateTimeFormat('en-GB', options).format(new Date(row.original.created_at))}</span>;
                     }
                     return '';
                 },
@@ -120,6 +124,7 @@ const AllUsers = () => {
             {
                 header: 'EDIT',
                 size: 70,
+                Cell: ({ cell }) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>,
                 accessorFn: (dataRow) => (
                     <Link to={`/user/${dataRow._id}`}>
                         <CIcon icon={cilColorBorder} />
@@ -128,6 +133,7 @@ const AllUsers = () => {
             },
             {
                 header: 'STATUS',
+                Cell: ({ cell }) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>,
                 accessorFn: (dataRow) => (
                     <CIcon
                         icon={dataRow.isActive ? cilLockUnlocked : cilLockLocked}
@@ -143,6 +149,7 @@ const AllUsers = () => {
             {
                 header: 'DELETE',
                 size: 70, // Reduced size for "Delete"
+                Cell: ({ cell }) => <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>,
                 accessorFn: (dataRow) => (
                     <CIcon
                         icon={cilTrash}
@@ -176,7 +183,7 @@ const AllUsers = () => {
                 <AppHeader />
                 <div className="body flex-grow-1">
                     <div className="mx-3 mb-2">
-                        <h4 className="mb-2">ALL USERS</h4>
+                        <h4 className="mb-2 fw-bold fs-1" >ALL USERS</h4>
                         <MantineReactTable table={table} />
                     </div>
                 </div>

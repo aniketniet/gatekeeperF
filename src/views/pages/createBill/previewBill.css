@@ -21,12 +21,17 @@
   width: 22em;
   background-color: #fff;
   border-radius: 5px;
-  box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.15);
+ 
 }
 
-.invoice-card > div {
+/* .invoice-card > div {
   margin: 5px 0;
-}
+} */
+
+input::placeholder {
+    font-size: 1.25rem; /* Adjust the size as needed */
+  }
+
 
 .invoice-title {
   flex: 3;

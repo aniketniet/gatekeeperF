@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 const MaterialPrintPage = () => {
   const location = useLocation()
   const { materials, type, tableTyle } = location.state || {
+    
     materials: [],
     type: '',
     tableTyle: '',
@@ -18,22 +19,41 @@ const MaterialPrintPage = () => {
     <>
       <style>
         {/* Custom styles */}
-        {`
-                @media print {
-                    body {
-                        background-color: white; /* Sets background color for print */
-                        color: black; /* Sets text color for print */
-                    }
+        <style>
+  {`
+    @media print {
+      body {
+        background-color: white; /* Background color for print */
+        color: black; /* Text color for print */
+        margin: 0; /* Remove margins for print */
+      }
 
-                    .print-hidden {
-                        display: none; /* Hides the print button when printing */
-                    }
-                    .table th,
-                    .table td {
-                        color: black; /* Sets the color of table headers and cells */
-                    }
-                }
-            `}
+      .print-hidden {
+        display: none; /* Hide print button when printing */
+      }
+
+      .container {
+        max-width: 100%; /* Ensures it doesn't overflow */
+        width: 100%;
+        padding: 0 10mm; /* Adds some padding for readability */
+      }
+
+      .table {
+        width: 100%; /* Ensure table fits within page width */
+        border-collapse: collapse; /* Collapse table borders for clean look */
+      }
+
+      .table th,
+      .table td {
+        color: black; /* Text color for table */
+        border: 1px solid black; /* Ensure borders are visible */
+        padding: 5px; /* Add padding for readability */
+        word-break: break-word; /* Prevent text overflow */
+      }
+    }
+  `}
+</style>
+
       </style>
       <div className="container mt-5">
         <h1 className="text-center " style={{ textTransform: 'uppercase' }}>
@@ -48,7 +68,7 @@ const MaterialPrintPage = () => {
               <tr>
                 <th>SR NO.</th>
 
-                <th>RST</th>
+                <th>RST-1</th>
 
                 <th>VEHICLE NUMBER</th>
 

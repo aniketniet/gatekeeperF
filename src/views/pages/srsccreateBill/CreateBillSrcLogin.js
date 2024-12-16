@@ -82,7 +82,7 @@ const SrcLogin = () => {
               <CCard className="p-4">
                 <CCardBody>
                   <CForm>
-                    <h3 className='uppercase'>Login To Generate SRSC Slip</h3>
+                    <h3 className='uppercase'>Login To Generate S.R.S.C. Slip</h3>
                     <p className="text-body-secondary">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>

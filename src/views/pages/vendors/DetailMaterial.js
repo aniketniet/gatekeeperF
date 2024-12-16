@@ -59,8 +59,8 @@ const DetailMaterial = () => {
         <AppHeader />
         <div className="text-white" style={{ marginTop: '10px', padding: '10px' }}>
           <div className="d-flex justify-content-between">
-            <h1>MATERIAL DETAIL </h1>
-            <button className="btn bg-primary no-print" onClick={handlePrint}>
+            <p className='fs-1 fw-bold text-black'>MATERIAL DETAIL </p>
+            <button className="btn bg-primary no-print text-white fw-bold " onClick={handlePrint}>
               PRINT
             </button>
           </div>
@@ -100,7 +100,7 @@ const DetailMaterial = () => {
                   </tbody>
                 </table>
               </div>
-              <strong>REMARK</strong>: <p>{material.remark }</p>
+              <strong className=' fw-bold text-black'>REMARK</strong>: <p className=' fw-bold text-black'>{material.remark }</p>
 
               <div
                 style={{

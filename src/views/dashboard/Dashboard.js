@@ -43,9 +43,9 @@ const Dashboard = () => {
         className="mb-3"
         style={{ maxWidth: '18rem' , backgroundColor: '#0077ff' }}
       >
-        <CCardHeader>USERS</CCardHeader>
+        <CCardHeader className='fs-5 fw-bold text-white'>USERS</CCardHeader>
         <CCardBody>
-          <CCardTitle>USERS: {totalUsers} </CCardTitle>
+          <CCardTitle className='fs-3 text-white'>USERS: {totalUsers} </CCardTitle>
         </CCardBody>
       </CCard>
       <Link to="/audiolist">
@@ -54,9 +54,9 @@ const Dashboard = () => {
         className="mb-4 mt-3 "
         style={{ maxWidth: '18rem', backgroundColor: '#0077ff' }}
       >
-        <CCardHeader>TOTAL AUDIO</CCardHeader>
+        <CCardHeader className='fs-5 fw-bold text-white'>TOTAL AUDIO</CCardHeader>
         <CCardBody>
-          <CCardTitle>TOTAL AUDIO: {totalVendors}</CCardTitle>
+          <CCardTitle className='fs-3 text-white'>TOTAL AUDIO: {totalVendors}</CCardTitle>
         </CCardBody>
       </CCard> 
       </Link>

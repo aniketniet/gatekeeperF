@@ -37,6 +37,9 @@ import MaterialPrintPage from './views/pages/vendors/MarterialPrintPage'
 import PreviewSrscBill from './views/pages/srsccreateBill/PreviewSrscBill'
 import SrcLogin from './views/pages/srsccreateBill/CreateBillSrcLogin'
 import SscLogin from './views/pages/sssccreateBill/CreateBillSscLogin'
+import SrscSlips from './views/pages/vendors/AllSlips/SrscSlips'
+import SscSlips from './views/pages/vendors/AllSlips/SscSlips'
+import BscSlips from './views/pages/vendors/AllSlips/BscSlips'
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
 
@@ -109,6 +112,10 @@ const App = () => {
           <Route path='/previewsrscbill' element={<PreviewSrscBill/>} />
           <Route path='/previewsscbill' element={<PreviewSscBill/>} />
           <Route path='/printpage' element={<MaterialPrintPage/>} />
+          <Route path='/srscSlips' element={<SrscSlips/>} />
+          <Route path='/SscSlips' element={<SscSlips/>} />
+          <Route path='/bscSlips' element={<BscSlips/>} />
+
 
          
 

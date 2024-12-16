@@ -16,11 +16,8 @@ import { AppSidebar, AppHeader } from '../../../components/index'
 import Loader from '../../../Loader'
 import { useParams } from 'react-router-dom'
 import * as XLSX from 'xlsx' // Import the xlsx library
-import PrintPage from './MarterialPrintPage'
 
-// import { start } from '@popperjs/core'
-// import { jsPDF } from 'jspdf';
-// import 'jspdf-autotable';
+
 
 const Material = () => {
   const [services, setServices] = useState([])

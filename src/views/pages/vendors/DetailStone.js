@@ -57,8 +57,8 @@ const DetailStone = () => {
         <AppHeader />
         <div className="text-white" style={{ marginTop: '10px', padding: '20px' }}>
           <div className="d-flex justify-content-between">
-            <h1>STONE DETAIL </h1>
-            <button className="btn bg-primary px-3 no-print" onClick={handlePrint}>
+            <h1 className='fs-1 fw-bold text-black'>STONE DETAIL </h1>
+            <button className="btn bg-primary px-3 no-print text-white fw-bold" onClick={handlePrint}>
               PRINT
             </button>
           </div>
@@ -99,7 +99,7 @@ const DetailStone = () => {
                   </tbody>
                 </table>
               </div>
-              <strong>REMARK</strong>: <p>{Stone.remark}</p>
+              <strong className=' fw-bold text-black'>REMARK</strong>: <p className='fw-bold text-black'>{Stone.remark}</p>
 
               {/* Display images */}
               <div

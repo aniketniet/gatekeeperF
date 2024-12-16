@@ -402,7 +402,7 @@ const Extra = () => {
                 >
                   Delete
                 </button>
-                <button className={filteredServices.length === 0 ? "btn btn-primary mx-2 disabled" : "btn btn-primary mx-2"}onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
+                <button className={filteredServices.length === 0 ? "btn btn-primary mx-2 disabled" : "btn btn-primary mx-2"}  onClick={handleDownloadPDF} style={{ textTransform: 'uppercase' }}>
                 Download PDF
               </button> 
               </div>

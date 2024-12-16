@@ -36,7 +36,7 @@ const _nav = [
   },
   {
     component: CNavGroup, // Collapsible group for dropdown
-    name: 'BSC',
+    name: 'B.S.C.',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
     items: [
       {
@@ -54,11 +54,16 @@ const _nav = [
         name: 'EXTRA',
         to: '/bsc/extra',
       },
+      {
+        component: CNavItem,
+        name: 'B.S.C. SLIPS',
+        to: '/bscSlips',
+      },
     ],
   },
   {
     component: CNavGroup, // Collapsible group for dropdown
-    name: 'SRSC',
+    name: 'S.R.S.C.',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
     items: [
       {
@@ -76,11 +81,16 @@ const _nav = [
         name: 'EXTRA',
         to: '/srsc/extra',
       },
+      {
+        component: CNavItem,
+        name: 'S.R.S.C. SLIPS',
+        to: '/srscSlips',
+      },
     ],
   },
   {
     component: CNavGroup, // Collapsible group for dropdown
-    name: 'SSC',
+    name: 'S.S.C.',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
     items: [
       {
@@ -97,6 +107,11 @@ const _nav = [
         component: CNavItem,
         name: 'EXTRA',
         to: '/ssc/extra',
+      },
+      {
+        component: CNavItem,
+        name: 'S.S.C. SLIPS',
+        to: '/sscSlips',
       },
     ],
   },
