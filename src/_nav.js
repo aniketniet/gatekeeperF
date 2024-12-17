@@ -10,7 +10,7 @@ import { CNavItem, CNavTitle,CNavGroup  } from '@coreui/react'
 const _nav = [
   {
     component: CNavItem,
-    name: 'DASHBOARD',
+    name: <span style={{fontSize:"24px",fontWeight:"bold"}}>DASHBOAD</span>,
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
   },
@@ -20,13 +20,15 @@ const _nav = [
   },
   {
     component: CNavItem,
-    name: 'ALL USERS',
+    name: <span style={{fontSize:"24px",fontWeight:"bold"}}>ALL USERS</span>,
+   
     to: '/users',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
   },
   {
     component: CNavItem,
-    name: 'CREATE USER',
+    name: <span style={{fontSize:"24px",fontWeight:"bold"}}>CREATE USER</span>,
+    
     to: '/user/create',
     icon: <CIcon icon={cilDrop} customClassName="nav-icon" style={{ color: "#0077ff", fontSize: "1.2em" }} />,
   },

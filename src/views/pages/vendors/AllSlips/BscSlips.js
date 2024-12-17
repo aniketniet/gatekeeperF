@@ -5,6 +5,8 @@ import { CIcon } from '@coreui/icons-react'
 import { cilTrash } from '@coreui/icons'
 import { AppHeader, AppSidebar } from '../../../../components'
 import { DatePicker, DatePickerInput } from '@mantine/dates'
+import { useNavigate } from 'react-router-dom'
+
 
 const BscSlips = () => {
   const [services, setServices] = useState([])
@@ -12,6 +14,7 @@ const BscSlips = () => {
   const [startDate, setStartDate] = useState(null)
   const [endDate, setEndDate] = useState(null)
   const token = localStorage.getItem('token')
+  const navigate = useNavigate()
 
   async function getBscBills() {
     const res = await axios.get(`${import.meta.env.VITE_BASE_URL}admin/bsc-bill`, {
@@ -59,6 +62,32 @@ const BscSlips = () => {
         size: 70,
       },
       {
+        header: 'DATE',
+        accessorKey: 'createdAt',
+        Cell: ({ cell }) => {
+          const date = new Date(cell.getValue())
+          const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
+          return <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{formattedDate}</span>
+        },
+        size: 150,
+      },
+      {
+        header: 'RST 1.',
+        accessorKey: 'rstno',
+        Cell: ({ cell }) => (
+          <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>
+        ),
+        size: 150,
+      },
+      {
+        header: 'VEHICLE NO.',
+        accessorKey: 'vehicle_number',
+        Cell: ({ cell }) => (
+          <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>
+        ),
+        size: 150,
+      },
+      {
         header: 'BILL ID',
         accessorKey: 'bill_id',
         Cell: ({ cell }) => (
@@ -67,7 +96,7 @@ const BscSlips = () => {
         size: 150,
       },
       {
-        header: 'COUNTER',
+        header: 'SLIP NO.',
         accessorKey: 'counter',
         Cell: ({ cell }) => (
           <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{cell.getValue()}</span>
@@ -82,16 +111,7 @@ const BscSlips = () => {
         ),
         size: 150,
       },
-      {
-        header: 'DATE',
-        accessorKey: 'createdAt',
-        Cell: ({ cell }) => {
-          const date = new Date(cell.getValue())
-          const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
-          return <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{formattedDate}</span>
-        },
-        size: 150,
-      },
+      
       {
         header: 'DELETE',
         size: 70,
@@ -124,6 +144,11 @@ const BscSlips = () => {
     }
   }
 
+
+  const handleDownloadPDF = () => {
+    navigate('/printPage', { state: { materials:services , type:"B.S.C.", tableTyle: 'Slip' } })
+  }
+
   return (
     <>
       <AppSidebar />
@@ -131,7 +156,18 @@ const BscSlips = () => {
         <AppHeader />
         <div className="body flex-grow-1">
           <div className="mx-3 mb-2">
-            <h4 className="mb-2 fw-bold fs-1">ALL B.S.C. SLIPS</h4>
+          <div className='d-flex justify-content-between'>
+                 <h4 className="mb-2 fw-bold fs-1">ALL B.S.C. SLIPS</h4>
+                  <button
+                 className={services.length === 0 ? "btn mx-2 disabled" : "btn  mx-2"}
+                  onClick={handleDownloadPDF}
+                  style={{ backgroundColor: '#0077ff', textTransform: 'uppercase',fontWeight:'bold' }}
+                >
+                  Download PDF
+                </button>
+                </div>
+            
+            
             <div className="d-flex mb-3">
               <DatePickerInput
                
@@ -180,4 +216,4 @@ const BscSlips = () => {
   )
 }
 
-export default BscSlips
+export default BscSlips;

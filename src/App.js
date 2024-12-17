@@ -115,6 +115,7 @@ const App = () => {
           <Route path='/srscSlips' element={<SrscSlips/>} />
           <Route path='/SscSlips' element={<SscSlips/>} />
           <Route path='/bscSlips' element={<BscSlips/>} />
+          {/* <Route path='/slipPrintPage' element={<slipPrintPage/>} /> */}
 
 
          

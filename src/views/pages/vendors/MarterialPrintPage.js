@@ -47,8 +47,9 @@ const MaterialPrintPage = () => {
       .table td {
         color: black; /* Text color for table */
         border: 1px solid black; /* Ensure borders are visible */
-        padding: 5px; /* Add padding for readability */
+        padding: 3px; /* Add padding for readability */
         word-break: break-word; /* Prevent text overflow */
+        font-size: 13px; /* Adjust font size for readability */
       }
     }
   `}
@@ -58,7 +59,7 @@ const MaterialPrintPage = () => {
       <div className="container mt-5">
         <h1 className="text-center " style={{ textTransform: 'uppercase' }}>
           {' '}
-          {type} {tableTyle} Details
+          {type}  {tableTyle} Details
         </h1>
 
         {tableTyle === 'material' && materials.length > 0 ? (
@@ -68,7 +69,7 @@ const MaterialPrintPage = () => {
               <tr>
                 <th>SR NO.</th>
 
-                <th>RST-1</th>
+                <th>RST 1.</th>
 
                 <th>VEHICLE NUMBER</th>
 
@@ -105,7 +106,7 @@ const MaterialPrintPage = () => {
               <tr>
                 <th>SR NO.</th>
 
-                <th>RST</th>
+                <th>RST 1.</th>
 
                 <th>VEHICLE NUMBER</th>
                 <th>FINAL WEIGHT</th>
@@ -151,7 +152,38 @@ const MaterialPrintPage = () => {
               ))}
             </tbody>
           </table>
-        ) : (
+        ) :
+        tableTyle === 'Slip' && materials.length > 0 ? (
+          // Second table for "stone" without the 'Material' column
+          <table className="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>SR NO.</th>
+                <th>DATE</th>
+                <th>RST 1.</th>
+                <th>VEHICLE NO.</th>
+                {/* <th>BILL ID</th> */}
+                <th>SLIP NO.</th>
+                <th>REMARK</th>
+              </tr>
+            </thead>
+            <tbody>
+              {materials.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{new Date(item.createdAt).toLocaleDateString('en-GB')}</td>
+                  <td>{item.rstno}</td>
+                  <td>{item.vehicle_number}</td>
+                  {/* <td>{item.bill_id}</td> */}
+                  <td>{item.counter}</td>
+                 
+                  <td>{item.material}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ):
+         (
           // Message if none of the conditions are met or materials are empty
           <p>No data available for the selected type.</p>
         )}

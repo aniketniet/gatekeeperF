@@ -42,8 +42,7 @@ const PreviewBill = () => {
         {`
           @media print {
             @page {
-              width:305px;
-            
+              size: A4;
               margin: 0;
             }
             body {
@@ -55,11 +54,6 @@ const PreviewBill = () => {
               
               top: 20%;
               left: 50%;
-               
-              width: 100%;
-              
-                
-
             
             }
             table, th, td, p, h1, h2, h3, h4, h5, h6, span {
@@ -75,15 +69,15 @@ const PreviewBill = () => {
     <div className="invoice-card">
       <div className="invoice-title">
         <div className="d-flex justify-content-center">
-          <span id="date" className='fs-5'>{new Date().toLocaleString()}</span> {/* Dynamic date */}
+          <p id="date" className='fs-5'>{new Date().toLocaleString()}</p> {/* Dynamic date */}
         </div>
-        <span id="invoice-number" className='text-dark fw-semibold'>SLIP NUMBER: {myBill || 'N/A'}</span>
+        <p id="invoice-number" className='fs-4  fw-bold'>SLIP NUMBER: {myBill || 'N/A'}</p>
       </div>
       
       {/* Show Material and Type information */}
       <div className="invoice-material-type text-dark">
         
-        <p className='fw-bold text-center' style={{fontSize:'50px'}}>{type || 'Not selected'}</p>
+        <p className='fs-1 fw-bold text-center' style={{fontSize:'50px'}}>{type || 'Not selected'}</p>
       </div>
       
       <div className="invoice-details">
@@ -92,7 +86,7 @@ const PreviewBill = () => {
             <tbody>
              
               <tr>
-                <th scope="row" className='fs-4'>RST</th>
+                <th scope="row" className='fs-4'>RST 1.</th>
                 <td  className='fs-4'>{bill.rstno}</td>
               </tr>
               <tr>
@@ -104,8 +98,8 @@ const PreviewBill = () => {
         ) : (
           <div>No bill available</div>
         )}
-        <p className='text-dark fs-4 fw-bold text-center'>B.S.C.</p>
-           <p className='text-center text-black'><strong>REMARK: </strong>{material || 'Not selected'}</p>
+        <p className=' fs-4 fw-bold text-center'>B.S.C.</p>
+           <p className='text-center  fs-4 fw-bold'>REMARK:{material || 'Not selected'}</p>
       </div>
 
       <div className='d-flex justify-content-between align-items-center mt-2'>

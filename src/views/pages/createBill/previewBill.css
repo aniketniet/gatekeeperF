@@ -57,8 +57,8 @@ input::placeholder {
   text-align: center; 
 }
 
-.invoice-title span {
-  color: rgba(0, 0, 0, 0.4);
+.invoice-title , p {
+  color: rgb(0, 0, 0);
   text-align: center; 
 }
 

@@ -35,7 +35,7 @@ export const AppSidebarNav = ({ items }) => {
       <Component as="div" key={index}>
       {rest.to || rest.href ? (
         <CNavLink {...(rest.to && { as: NavLink })} {...rest}>
-        {navLink(<b className='fs-5'>{name}</b>, icon, badge, indent)}
+        {navLink(<b style={{fontSize:"16px"}}>{name}</b>, icon, badge, indent)}
         </CNavLink>
       ) : (
         navLink(<b>{name}</b>, icon, badge, indent)
@@ -48,7 +48,7 @@ export const AppSidebarNav = ({ items }) => {
     const { component, name, icon, items, ...rest } = item
     const Component = component
     return (
-      <Component key={index} toggler={navLink(<b className='fs-5'>{name}</b>, icon)} {...rest}>
+      <Component key={index} toggler={navLink(<b style={{fontSize:"24px",fontWeight:"bold"}}>{name}</b>, icon)} {...rest}>
         {items?.map((subItem, idx) =>
           subItem.items ? navGroup(subItem, idx) : navItem(subItem, idx, true),
         )}
