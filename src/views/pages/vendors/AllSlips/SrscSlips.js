@@ -63,14 +63,15 @@ const SrscSlips = () => {
         size: 70,
       },
       {
-        header: 'DATE',
+        header: 'DATE & TIME',
         accessorKey: 'createdAt',
         Cell: ({ cell }) => {
           const date = new Date(cell.getValue())
           const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`
-          return <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{formattedDate}</span>
+          const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
+          return <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{`${formattedDate} ${formattedTime}`}</span>
         },
-        size: 150,
+        size: 200,
       },
       {
         header: 'RST 1.',
@@ -145,7 +146,7 @@ const SrscSlips = () => {
     }
   }
   const handleDownloadPDF = () => {
-    navigate('/printPage', { state: { materials:services , type:"S.R.S.C.", tableTyle: 'Slip' } })
+    navigate('/printPage', { state: { materials:services , type:"S.R.S.C.", tableTyle: 'Slips' } })
   }
 
 

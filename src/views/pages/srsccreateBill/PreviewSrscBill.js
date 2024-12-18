@@ -58,6 +58,9 @@ const PreviewSrscBill = () => {
             }
             table, th, td, p, h1, h2, h3, h4, h5, h6, span {
               color: black !important;
+              text-align: center !important; 
+              font-weight: 900 !important; 
+              font-size: 2rem; 
             }
             .no-print {
               display: none !important;
@@ -69,15 +72,15 @@ const PreviewSrscBill = () => {
     <div className="invoice-card">
       <div className="invoice-title">
         <div className="d-flex justify-content-center">
-          <span id="date" className='fs-5'>{new Date().toLocaleString()}</span> {/* Dynamic date */}
+          <p id="date" className='fs-4'>{new Date().toLocaleString()}</p> {/* Dynamic date */}
         </div>
-        <p id="invoice-number" className='fs-4  fw-bold'>SLIP NUMBER: {myBill || 'N/A'}</p>
+        <p id="invoice-number" >SLIP NUMBER: {myBill || 'N/A'}</p>
       </div>
       
       {/* Show Material and Type information */}
       <div className="invoice-material-type">
        
-        <p className='fs-1 fw-bold text-center'>{type || 'Not selected'}</p>
+        <p>{type || 'Not selected'}</p>
       </div>
       
       <div className="invoice-details">
@@ -98,8 +101,8 @@ const PreviewSrscBill = () => {
         ) : (
           <div>No bill available</div>
         )}
-        <p className=' fs-4 fw-bold text-center'>S.R.S.C.</p>
-        <p className='text-center  fs-4 fw-bold'>REMARK:{material || 'Not selected'}</p>
+        <p>S.R.S.C.</p>
+        <p style={{fontSize:"1rem"}}>REMARK:{material || 'Not selected'}</p>
       </div>
 
       

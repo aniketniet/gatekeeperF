@@ -57,15 +57,22 @@ input::placeholder {
   text-align: center; 
 }
 
-.invoice-title , p {
+.invoice-title {
   color: rgb(0, 0, 0);
   text-align: center; 
+  font-weight: 900; 
+}
+p{
+  color: rgb(0, 0, 0);
+  text-align: center; 
+  font-weight: 900; 
+  font-size: 2rem;
 }
 
 .invoice-details {
   text-align: center; 
-  border-top: 0.5px dashed grey;
-  border-bottom: 0.5px dashed grey;
+  border-top: 0.5px dashed black;
+  border-bottom: 0.5px dashed black;
 
 }
 

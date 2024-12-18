@@ -3,12 +3,16 @@ import { useLocation } from 'react-router-dom'
 
 const MaterialPrintPage = () => {
   const location = useLocation()
-  const { materials, type, tableTyle } = location.state || {
+  const { materials, type, tableTyle,} = location.state || {
     
     materials: [],
     type: '',
     tableTyle: '',
+    
+    
   }
+
+  const filteredMaterials = materials.filter(item => item.status === 1);
 
   // Function to trigger print dialog
   const handlePrint = () => {
@@ -153,13 +157,51 @@ const MaterialPrintPage = () => {
             </tbody>
           </table>
         ) :
-        tableTyle === 'Slip' && materials.length > 0 ? (
+        tableTyle === 'Slip' &&  filteredMaterials.length > 0 ? (
           // Second table for "stone" without the 'Material' column
           <table className="table table-bordered table-hover">
             <thead>
               <tr>
                 <th>SR NO.</th>
-                <th>DATE</th>
+                <th>DATE & TIME</th>
+                <th>RST 1.</th>
+                <th>VEHICLE NO.</th>
+                {/* <th>BILL ID</th> */}
+                <th>SLIP NO.</th>
+                <th>REMARK</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredMaterials.map((item, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  {/* <td>{new Date(item.createdAt).toLocaleDateString('en-GB')}</td> */}
+                  <td>
+                    {(() => {
+                      const date = new Date(item.createdAt);
+                      const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+                      const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+                      return `${formattedDate} ${formattedTime}`;
+                    })()}
+                  </td>
+                  <td>{item.rstno}</td>
+                  <td>{item.vehicle_number}</td>
+                  {/* <td>{item.bill_id}</td> */}
+                  <td>{item.counter}</td>
+                 
+                  <td>{item.material}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ):
+        tableTyle === 'Slips' &&  materials.length > 0 ? (
+          // Second table for "stone" without the 'Material' column
+          <table className="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>SR NO.</th>
+                <th>DATE & TIME</th>
                 <th>RST 1.</th>
                 <th>VEHICLE NO.</th>
                 {/* <th>BILL ID</th> */}
@@ -171,7 +213,15 @@ const MaterialPrintPage = () => {
               {materials.map((item, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{new Date(item.createdAt).toLocaleDateString('en-GB')}</td>
+                  {/* <td>{new Date(item.createdAt).toLocaleDateString('en-GB')}</td> */}
+                  <td>
+                    {(() => {
+                      const date = new Date(item.createdAt);
+                      const formattedDate = `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear().toString().slice(-2)}`;
+                      const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
+                      return `${formattedDate} ${formattedTime}`;
+                    })()}
+                  </td>
                   <td>{item.rstno}</td>
                   <td>{item.vehicle_number}</td>
                   {/* <td>{item.bill_id}</td> */}
@@ -185,7 +235,7 @@ const MaterialPrintPage = () => {
         ):
          (
           // Message if none of the conditions are met or materials are empty
-          <p>No data available for the selected type.</p>
+          <p className='text-white'>No data available for the selected type.</p>
         )}
 
         <button className="btn btn-primary mt-3 print-hidden" onClick={handlePrint}>

@@ -6,6 +6,7 @@ import axios from 'axios'
 const CreateBill = () => {
   const { state } = useLocation()
   const [services, setServices] = useState([])
+  // const [status, setStatus] = useState('')
   const { billerName } = state || {}
   const [count, setCount] = useState('') // State for the counter value
   const [formData, setFormData] = useState({
@@ -49,8 +50,11 @@ const CreateBill = () => {
     })
 
     const usersData = res.data.bills
+    // const state = res.data.bills.map((item) => item.status)
+    // console.log(state, 'status') 
+    // setStatus(state)
     setServices(usersData)
-    setFilteredServices(usersData) // Initialize filtered services with all data
+    // setFilteredServices(usersData) // Initialize filtered services with all data
   }
   
     useEffect(() => {
@@ -100,6 +104,7 @@ const CreateBill = () => {
       rstno: rto,
       vehicle_number: vehicleNumber,
       category: 'TROOPER',
+      status:"1",
       material,
       type,
     }
@@ -147,6 +152,8 @@ async function resetCount() {
             if (res.status === 200) {
                 alert('Counter reset successfully')
                 fetchCount()
+                getBscBills()
+
             } else {
                 alert('Failed to reset counter')
             }
@@ -157,7 +164,7 @@ async function resetCount() {
     }
 }
   const handleDownloadPDF = () => {
-    navigate('/printPage', { state: { materials:services , type:"B.S.C.", tableTyle: 'Slip' } })
+    navigate('/printPage', { state: { materials:services , type:"B.S.C.", tableTyle: 'Slip', } })
   }
 
 

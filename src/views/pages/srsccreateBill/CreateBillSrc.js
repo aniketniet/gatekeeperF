@@ -13,6 +13,7 @@ const CreateBill = () => {
     rto: '',
     vehicleNumber: '',
     material: '',
+    
     category: '',
   })
 
@@ -96,6 +97,7 @@ const CreateBill = () => {
       rstno: rto,
       vehicle_number: vehicleNumber,
       material,
+      status:"1",
       category,
     }
 
@@ -141,6 +143,7 @@ const CreateBill = () => {
       if (res.status === 200) {
         alert('Counter reset successfully')
         fetchCount()
+        getSrscBills()
       } else {
         alert('Failed to reset counter')
       }

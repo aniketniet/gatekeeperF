@@ -83,7 +83,7 @@ const SscLogin = () => {
                 <CCardBody>
                   <CForm>
                     <h3>Login To Generate S.S.C. Slip</h3>
-                    <p className="text-body-secondary">Sign In to your account</p>
+                    <p className="text-body-secondary fs-5">Sign In to your account</p>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
